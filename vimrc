@@ -1,6 +1,4 @@
-
-""" NeoBundle
-if has('vim_starting')
+if has('vim_starting') " NeoBundle {{{
   set nocompatible
   set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
@@ -8,6 +6,7 @@ endif
 call neobundle#rc(expand('~/.vim/bundle'))
 
 NeoBundleFetch 'Shougo/neobundle.vim'
+"}}}
 
 NeoBundle 'thinca/vim-quickrun' "{{{
 if neobundle#tap('vim-quickrun')
@@ -56,8 +55,8 @@ if neobundle#tap('gundo.vim')
 endif
 "}}}
 
-if has('lua')
-  NeoBundle 'Shougo/neocomplete' "{{{
+if has('lua') " Shougo/neocomplete {{{
+  NeoBundle 'Shougo/neocomplete'
   if neobundle#tap('neocomplete') 
     let g:acp_enableAtStartup = 0
     let g:neocomplete#enable_at_startup = 1
@@ -95,8 +94,8 @@ if has('lua')
     let g:neocomplete#force_omni_input_patterns.tex =
           \ '\v\\\a*(ref|cite)\a*([^]]*\])?\{(|[^}]*,)'
   endif
-  "}}}
 endif
+"}}}
 
 NeoBundle 'Shougo/neosnippet.vim' "{{{
 NeoBundle 'git@github.com:philopon/neosnippet-snippets.git'
@@ -108,13 +107,17 @@ if neobundle#tap('neosnippet.vim')
 endif
 "}}}
 
+" Language specific configuration {{{
 source $HOME/.vim/config/haskell.vim
 source $HOME/.vim/config/python.vim
 source $HOME/.vim/config/tex.vim
+"}}}
 
+" Platform Specific configuration {{{
 if has('macunix')
   source $HOME/.vim/config/macunix.vim
 endif
+"}}}
 
 source $HOME/.vim/config/global.vim
 
