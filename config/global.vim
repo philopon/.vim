@@ -16,6 +16,8 @@ set autoindent
 set expandtab
 set hidden
 
+set wildmode=longest,list
+
 if !isdirectory($HOME."/.vim/backup")
   call mkdir($HOME."/.vim/backup")
 endif
@@ -26,6 +28,7 @@ if !isdirectory($HOME."/.vim/undo")
 endif
 set undodir=$HOME/.vim/undo
 set undofile
+set undolevels=2000
 
 """ Keymap
 imap <c-j> <esc>
@@ -39,4 +42,11 @@ nmap <Space>  [space]
 nmap [space]u [unite]
 nnoremap <silent> [space]f :<C-u>set foldenable!<CR>
 
+""" color scheme
+NeoBundle 'w0ng/vim-hybrid'
+if neobundle#tap('vim-hybrid')
+  let g:hybrid_use_Xresources = 1
+  colorscheme hybrid
+endif
 
+filetype plugin indent on
