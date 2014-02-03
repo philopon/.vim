@@ -6,7 +6,6 @@ set backspace=2
 
 set showcmd
 
-"set nofoldenable
 set foldmethod=marker
 
 set tabstop=2
