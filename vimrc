@@ -116,6 +116,11 @@ NeoBundle 'tpope/vim-surround'
 NeoBundle 'kana/vim-smartinput'
 NeoBundle 'kana/vim-smartchr'
 
+NeoBundle 'aperezdc/vim-template'
+if neobundle#is_installed('vim-template')
+  let g:template_dir = '~/.vim/template'
+endif
+
 " Language specific configuration {{{
 source $HOME/.vim/config/haskell.vim
 source $HOME/.vim/config/python.vim
