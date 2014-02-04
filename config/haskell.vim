@@ -11,7 +11,10 @@ if neobundle#tap('ghcmod-vim')
   function MyGhcModKeymap()
     noremap <buffer> <silent> [space]t :<C-u>GhcModType<CR>
   endfunction
-  autocmd FileType haskell call MyGhcModKeymap()
+  augroup haskell_mode_keymap
+    autocmd!
+    autocmd FileType haskell call MyGhcModKeymap()
+  augroup END
 endif
 "}}}
 

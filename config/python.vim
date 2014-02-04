@@ -1,3 +1,6 @@
 NeoBundle 'davidhalter/jedi-vim'
-autocmd FileType python setlocal omnifunc=jedi#completions
 
+augroup neocomplete_filespecific
+  autocmd!
+  autocmd FileType python setlocal omnifunc=jedi#completions
+augroup END
