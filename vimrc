@@ -45,6 +45,9 @@ NeoBundle 'osyo-manga/vim-watchdogs'
 NeoBundle 'scrooloose/syntastic' "{{{
 if neobundle#is_installed('syntastic')
   let g:syntastic_always_populate_loc_list=1
+  autocmd CursorHold * SyntasticCheck
+  nnoremap [space]j :<c-u>lnext<CR>
+  nnoremap [space]k :<c-u>lprevious<CR>
 endif
 "}}}
 
