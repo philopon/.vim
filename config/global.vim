@@ -33,6 +33,7 @@ set undolevels=2000
 imap <c-j> <esc>
 nmap <c-j> <esc>
 cmap <c-j> <esc>
+vmap <c-j> <esc>
 noremap ; :
 noremap : ;
 nnoremap [space] <Nop>
@@ -43,7 +44,7 @@ nnoremap <silent> [space]f :<C-u>set foldenable!<CR>
 
 """ color scheme
 NeoBundle 'w0ng/vim-hybrid'
-if neobundle#tap('vim-hybrid')
+if neobundle#is_installed('vim-hybrid')
   let g:hybrid_use_Xresources = 1
   colorscheme hybrid
 endif

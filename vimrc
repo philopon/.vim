@@ -9,10 +9,9 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 "}}}
 
 NeoBundle 'thinca/vim-quickrun' "{{{
-if neobundle#tap('vim-quickrun')
+if neobundle#is_installed('vim-quickrun')
   nnoremap [space]r :<C-u>QuickRun<CR>
   nnoremap [space]R :<C-u>QuickRun -args 
-  nnoremap <silent> [space]o :<C-u>only<CR>
   if !exists('g:quickrun_config')
     let g:quickrun_config = {}
   endif
@@ -30,7 +29,7 @@ NeoBundle 'Shougo/vimproc', "{{{
 "}}}
 
 NeoBundle 'Shougo/unite.vim' "{{{
-if neobundle#tap('unite.vim')
+if neobundle#is_installed('unite.vim')
   let g:unite_enable_start_insert=1
   let g:unite_source_history_yank_enable = 1
   nnoremap <silent> [unite]f :<C-u>Unite file file/new<CR>
@@ -44,20 +43,20 @@ NeoBundle 'osyo-manga/unite-quickfix'
 NeoBundle 'osyo-manga/vim-watchdogs'
 
 NeoBundle 'scrooloose/syntastic' "{{{
-if neobundle#tap('syntastic')
+if neobundle#is_installed('syntastic')
   let g:syntastic_always_populate_loc_list=1
 endif
 "}}}
 
 NeoBundle 'sjl/gundo.vim' "{{{
-if neobundle#tap('gundo.vim')
+if neobundle#is_installed('gundo.vim')
   nnoremap [space]g :<C-u>GundoToggle<CR>
 endif
 "}}}
 
 if has('lua') " Shougo/neocomplete {{{
   NeoBundle 'Shougo/neocomplete'
-  if neobundle#tap('neocomplete') 
+  if neobundle#is_installed('neocomplete') 
     let g:acp_enableAtStartup = 0
     let g:neocomplete#enable_at_startup = 1
     let g:neocomplete#enable_smart_case = 1
@@ -101,13 +100,15 @@ endif
 
 NeoBundle 'Shougo/neosnippet.vim' "{{{
 NeoBundle 'git@github.com:philopon/neosnippet-snippets.git'
-if neobundle#tap('neosnippet.vim')
+if neobundle#is_installed('neosnippet.vim')
   " Plugin key-mappings.
   imap <C-k>     <Plug>(neosnippet_expand_or_jump)
   smap <C-k>     <Plug>(neosnippet_expand_or_jump)
   xmap <C-k>     <Plug>(neosnippet_expand_target)
 endif
 "}}}
+
+NeoBundle 'tpope/vim-surround'
 
 " Language specific configuration {{{
 source $HOME/.vim/config/haskell.vim

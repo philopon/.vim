@@ -1,25 +1,28 @@
 auto FileType haskell setlocal shiftwidth=1
 
-NeoBundle 'dag/vim2hs' "{{{
+NeoBundleLazy 'dag/vim2hs', { 'autoload' : { 'filetypes': ['haskell'] } } "{{{
 if neobundle#tap('vim2hs')
-  let g:haskell_conceal = 0
-endif
-"}}}
-
-NeoBundle 'eagletmt/ghcmod-vim' "{{{
-if neobundle#tap('ghcmod-vim')
-  function MyGhcModKeymap()
-    noremap <buffer> <silent> [space]t :<C-u>GhcModType<CR>
+  function! neobundle#tapped.hooks.on_source(bundle)
+    let g:haskell_conceal = 0
   endfunction
-  augroup haskell_mode_keymap
-    autocmd!
-    autocmd FileType haskell call MyGhcModKeymap()
-  augroup END
+  call neobundle#untap()
 endif
 "}}}
 
-NeoBundle 'ujihisa/neco-ghc'
+NeoBundleLazy 'eagletmt/ghcmod-vim', { 'autoload' : { 'filetypes': ['haskell'] } } "{{{
+if neobundle#tap('ghcmod-vim')
+  function! neobundle#tapped.hooks.on_source(bundle)
+    augroup haskell_mode_keymap
+      autocmd!
+      autocmd FileType haskell noremap <buffer> <silent> [space]t :<C-u>GhcModType<CR>
+    augroup END
+  endfunction
+  call neobundle#untap()
+endif
+"}}}
 
-NeoBundle 'ujihisa/unite-haskellimport'
+NeoBundleLazy 'ujihisa/neco-ghc', { 'autoload' : { 'filetypes': ['haskell'] } }
+
+NeoBundleLazy 'ujihisa/unite-haskellimport', { 'autoload' : { 'filetypes': ['haskell'] } }
 
 
