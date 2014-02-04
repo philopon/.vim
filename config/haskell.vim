@@ -23,6 +23,5 @@ endif
 
 NeoBundleLazy 'ujihisa/neco-ghc', { 'autoload' : { 'filetypes': ['haskell'] } }
 
-NeoBundleLazy 'ujihisa/unite-haskellimport', { 'autoload' : { 'filetypes': ['haskell'] } }
 
 
