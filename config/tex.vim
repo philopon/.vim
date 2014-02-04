@@ -1,3 +1,5 @@
+autocmd FileType plaintex set filetype=tex
+
 NeoBundleLazy 'LaTeX-Box-Team/LaTeX-Box', { 'autoload' : { 'filetypes': ['tex'] } } "{{{
 if neobundle#tap('LaTeX-Box')
   function neobundle#tapped.hooks.on_source(bundle)
