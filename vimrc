@@ -113,6 +113,9 @@ endif
 
 NeoBundle 'tpope/vim-surround'
 
+NeoBundle 'kana/vim-smartinput'
+NeoBundle 'kana/vim-smartchr'
+
 " Language specific configuration {{{
 source $HOME/.vim/config/haskell.vim
 source $HOME/.vim/config/python.vim
