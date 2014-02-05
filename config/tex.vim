@@ -4,6 +4,7 @@ NeoBundleLazy 'LaTeX-Box-Team/LaTeX-Box', { 'autoload' : { 'filetypes': ['tex'] 
 if neobundle#tap('LaTeX-Box')
   function neobundle#tapped.hooks.on_source(bundle)
     let g:LatexBox_no_mappings = 1
+    let g:LatexBox_Folding = 1
     let g:LatexBox_output_type = 'pdf'
     let g:LatexBox_viewer = 'open -a Skim'
 
@@ -41,3 +42,4 @@ if neobundle#is_installed('vim-quickrun') "{{{
   augroup END
 endif
 "}}}
+
