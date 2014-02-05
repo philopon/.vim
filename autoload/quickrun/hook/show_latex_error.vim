@@ -9,10 +9,12 @@ let s:hook = {
 
 function! s:hook.on_success(session, context)
   echo 'Compile Success'
+  cclose
 endfunction
 
 function! s:hook.on_failure(session, context)
-  LatexErrors
+  cfile `=fnamemodify(a:session.config.srcfile, ':r') . '.log'`
+  copen
 endfunction
 
 function! quickrun#hook#show_latex_error#new()
