@@ -36,11 +36,11 @@ cmap <c-j> <esc>
 vmap <c-j> <esc>
 noremap ; :
 noremap : ;
+nmap zf zMzv
 nnoremap [space] <Nop>
 nnoremap [unite] <Nop>
 nmap <Space>  [space]
 nmap [space]u [unite]
-nnoremap <silent> [space]f :<C-u>set foldenable!<CR>
 
 """ color scheme
 NeoBundle 'w0ng/vim-hybrid'
