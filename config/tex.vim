@@ -30,7 +30,7 @@ if neobundle#is_installed('vim-quickrun') "{{{
         \ 'outputter': 'null',
         \ 'runner': 'vimproc',
         \ 'runner/vimproc/updatetime': 100,
-        \ 'hook/show_latex_error/enable': 1,
+        \ 'hook/latex_compile/enable': 1,
         \ 'hook/cd/enable': 1,
         \ 'hook/cd/directory': '%S:h',
         \ 'exec':         '%c -pdfdvi -quiet %s'
@@ -38,7 +38,7 @@ if neobundle#is_installed('vim-quickrun') "{{{
 
   augroup tex_autocompile
     autocmd!
-    autocmd BufWritePost *.tex QuickRun
+    autocmd BufWritePost *.tex QuickRun -hook/latex_compile/partial_enable 1
   augroup END
 endif
 "}}}
