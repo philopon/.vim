@@ -32,7 +32,7 @@ if neobundle#is_installed('vim-quickrun') "{{{
         \ 'runner/vimproc/updatetime': 100,
         \ 'hook/show_latex_error/enable': 1,
         \ 'hook/cd/enable': 1,
-        \ 'hook/cd/directory': '%{expand("%:p:h")}',
+        \ 'hook/cd/directory': '%S:h',
         \ 'exec':         '%c -pdfdvi -quiet %s'
         \ }
 
