@@ -112,8 +112,9 @@ endif
 "}}}
 
 NeoBundle 'tpope/vim-surround'
-
 NeoBundle 'kana/vim-smartchr'
+
+NeoBundle 'vim-scripts/restore_view.vim'
 
 NeoBundle 'aperezdc/vim-template' "{{{
 if neobundle#is_installed('vim-template')
