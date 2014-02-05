@@ -113,7 +113,6 @@ endif
 
 NeoBundle 'tpope/vim-surround'
 
-NeoBundle 'kana/vim-smartinput'
 NeoBundle 'kana/vim-smartchr'
 
 NeoBundle 'aperezdc/vim-template' "{{{
