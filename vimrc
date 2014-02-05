@@ -122,6 +122,12 @@ if neobundle#is_installed('vim-template')
 endif
 "}}}
 
+NeoBundle 'kana/vim-textobj-user'
+NeoBundle 'kana/vim-textobj-line'
+NeoBundle 'kana/vim-textobj-lastpat'
+NeoBundle 'kana/vim-textobj-fold'
+NeoBundle 'mattn/vim-textobj-url'
+
 " Language specific configuration {{{
 source $HOME/.vim/config/haskell.vim
 source $HOME/.vim/config/python.vim
