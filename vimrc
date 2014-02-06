@@ -64,7 +64,6 @@ if has('lua') " Shougo/neocomplete {{{
     let g:neocomplete#enable_at_startup = 1
     let g:neocomplete#enable_smart_case = 1
     let g:neocomplete#sources#syntax#min_keyword_length = 3
-    let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 
     inoremap <expr><C-g>     neocomplete#undo_completion()
     inoremap <expr><C-l>     neocomplete#complete_common_string()
@@ -95,8 +94,6 @@ if has('lua') " Shougo/neocomplete {{{
     if !exists('g:neocomplete#force_omni_input_patterns')
       let g:neocomplete#force_omni_input_patterns = {}
     endif
-    let g:neocomplete#force_omni_input_patterns.tex =
-          \ '\v\\\a*(ref|cite)\a*([^]]*\])?\{(|[^}]*,)'
   endif
 endif
 "}}}

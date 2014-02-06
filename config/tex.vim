@@ -18,6 +18,9 @@ if neobundle#tap('LaTeX-Box')
       autocmd FileType tex vmap <buffer> <S-F7> <Plug>LatexEnvWrapSelection
     augroup END
   endfunction
+
+  let g:neocomplete#force_omni_input_patterns.tex =
+        \ '\v\\\a*(ref|cite)\a*([^]]*\])?\{(|[^}]*,)'
   
   call neobundle#untap()
 endif
