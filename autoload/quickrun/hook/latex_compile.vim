@@ -21,97 +21,98 @@ let s:latex_partial_markers = [
       \   ['^\s*\(\\\|% Fake\)part\>',          1],
       \ ]
 
-function! s:get_preamble_and_section(linum) "{{{
-  let l:result        = []
-  let l:currentLines  = []
-  let l:currentLevel  = -1
-  let l:targetSection = 0
-  let l:linum         = 0
-  let l:currentHeader = ""
+let g:latex_minimum_level = 3
 
+function! s:get_target_region_start(lnum) "{{{
+  let l:lnum = a:lnum
+  while l:lnum > 0
+    let l:line = getline(l:lnum)
+    for [l:regex, l:level] in s:latex_partial_markers[(5-g:latex_minimum_level):]
+      if l:line =~# l:regex
+        return [l:lnum, l:level]
+      endif
+    endfor
+    let l:lnum -= 1
+  endwhile
+  return [1, 0]
+endfunction "}}}
+
+function! s:get_target_region_end(level, lnum) "{{{
+  let l:lnum = a:lnum
+  while l:lnum <= line('$')
+    let l:lnum += 1
+    let l:line = getline(l:lnum)
+    for [l:regex, l:level] in s:latex_partial_markers[(5-a:level):]
+      if l:line =~# l:regex
+        return l:lnum
+      endif
+    endfor
+  endwhile
+  return line('$')
+endfunction "}}}
+
+function! s:get_preamble_and_partial_tex(lnum) "{{{
+  let l:lnum = 0
   let l:preamble = []
-  while l:linum <= line('$')
-    let l:linum += 1
-    let l:line = getline(l:linum)
+  let l:result = []
+
+  while l:lnum <= line('$')
+    let l:lnum += 1
+    let l:line = getline(l:lnum)
     if l:line =~# '^\s*\\begin\s*{\s*document\s*}'
       call add(l:result, l:line)
       break
     endif
-    call add(l:preamble, line)
+    call add(l:preamble, l:line)
   endwhile
 
-  while l:linum <= line('$')
-    let l:linum += 1
-    let l:line = getline(l:linum)
+  let [l:start, l:level] = s:get_target_region_start(a:lnum)
+  let l:end = s:get_target_region_end(l:level, a:lnum)
+
+  while l:lnum <= line('$')
+    let l:lnum += 1
+    let l:line = getline(l:lnum)
 
     if l:line =~# '\s*\\end\s*{\s*document\s*}'
-      if l:targetSection
-        let l:currentHeader = l:currentLines[0]
-        let l:result = extend(l:result, l:currentLines)
-      else 
-        let l:result = extend(l:result, s:delete_unused_lines(l:currentLines))
-      endif
       call add(l:result, l:line)
       break
+    elseif l:start <= l:lnum && l:lnum < l:end
+      call add(l:result, l:line)
+    else
+      call add(l:result, '')
     endif
+  endwhile
 
-    for [l:part, l:level] in s:latex_partial_markers
-      if l:line =~# l:part
-        if l:level >  l:currentLevel
-          let l:result = extend(l:result, s:delete_unused_lines(l:currentLines))
-          let l:currentLines = []
-        else " l:level <= l:currentLevel
-          if l:targetSection
-            let l:currentHeader = l:currentLines[0]
-            let l:result = extend(l:result, l:currentLines)
-            let l:targetSection = 0
-          else 
-            let l:result = extend(l:result, s:delete_unused_lines(l:currentLines))
-          endif
-          let l:currentLines = []
+  if l:level > 0
+    let l:preamble_op = split(substitute(getline(l:start), '.*%\s*\(p\|P\)reamble\s*:\s*', '', ''), ',')
+    let l:index = 0
+    while l:index < len(l:preamble_op)
+      let l:preamble_op[l:index] = substitute(substitute(l:preamble_op[l:index],'^\s\+','',''),'\s\+$','','')
+      let l:index += 1
+    endwhile
+
+    let l:index = 0
+    while l:index < len(l:preamble)
+      if l:preamble[l:index] =~# '%\s*\(i\|I\)gnore\s*$'
+        let l:preamble[l:index] = ''
+      elseif l:preamble[l:index] =~# '%\s*\(o\|O\)ptional[^%,]*$'
+        let l:tag = substitute(l:preamble[l:index], '.*%\s*\(o\|O\)ptional\s*:\s*', '', '')
+        if index(l:preamble_op, l:tag) < 0
+          let l:preamble[l:index] = ''
         endif
-        let l:currentLevel = l:level
-        break
+      elseif l:preamble[l:index] =~# '%\s*\(d\|D\)efault[^%,]*$'
+        let l:tag = substitute(l:preamble[l:index], '.*%\s*\(d\|D\)efault\s*:\s*', '', '')
+        if index(l:preamble_op, '!' . l:tag) >= 0
+          let l:preamble[l:index] = ''
+        endif
       endif
-    endfor
-
-    if l:linum == a:linum
-      let l:targetSection = 1
-    endif
-
-    call add(l:currentLines, l:line)
-
-  endwhile
-
-  let l:preamble_op = split(substitute(l:currentHeader, '.*%\s*\(p\|P\)reamble\s*:\s*', '', ''), ',')
-  let l:linum = 0
-  while l:linum < len(l:preamble_op)
-    let l:preamble_op[l:linum] = substitute(substitute(l:preamble_op[l:linum],'^\s\+','',''),'\s\+$','','')
-    let l:linum += 1
-  endwhile
-
-  let l:linum = 0
-  while l:linum < len(l:preamble)
-    if l:preamble[l:linum] =~# '%\s*\(i\|I\)gnore\s*$'
-      let l:preamble[l:linum] = ''
-    elseif l:preamble[l:linum] =~# '%\s*\(o\|O\)ptional[^%,]*$'
-      let l:tag = substitute(l:preamble[l:linum], '.*%\s*\(o\|O\)ptional\s*:\s*', '', '')
-      if index(l:preamble_op, l:tag) < 0
-        let l:preamble[l:linum] = ''
-      endif
-    elseif l:preamble[l:linum] =~# '%\s*\(d\|D\)efault[^%,]*$'
-      let l:tag = substitute(l:preamble[l:linum], '.*%\s*\(d\|D\)efault\s*:\s*', '', '')
-      if index(l:preamble_op, '!' . l:tag) >= 0
-        let l:preamble[l:linum] = ''
-      endif
-    endif
-    let l:linum += 1
-  endwhile
-
+      let l:index += 1
+    endwhile
+  endif
   return extend(l:preamble, l:result)
 endfunction "}}}
 
-function s:modify_filepath_in_log(file, orig, mod) "{{{
+function! s:modify_filepath_in_log(file, orig, mod) "{{{
   let l:content = readfile(a:file)
   let l:index = 0
   while l:index < len(l:content)
@@ -134,7 +135,7 @@ function! s:hook.on_module_loaded(session, context)
   if self.config.partial_enable
     let self.config.original     = a:session.config.srcfile
     let a:session.config.srcfile = fnamemodify(a:session.config.srcfile, ':r') . self.config.partial_suffix . '.tex'
-    call writefile(s:get_preamble_and_section(line('.')), a:session.config.srcfile)
+    call writefile(s:get_preamble_and_partial_tex(line('.')), a:session.config.srcfile)
   endif
 endfunction
 
