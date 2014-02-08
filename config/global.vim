@@ -37,6 +37,7 @@ vmap <c-j> <esc>
 noremap ; :
 noremap : ;
 nmap zf zMzv
+nmap zF zMzvzczO
 nnoremap [space] <Nop>
 nnoremap [unite] <Nop>
 nmap <Space>  [space]
@@ -47,6 +48,9 @@ NeoBundle 'w0ng/vim-hybrid'
 if neobundle#is_installed('vim-hybrid')
   let g:hybrid_use_Xresources = 1
   colorscheme hybrid
+  autocmd GUIEnter * colorscheme hybrid
 endif
+
+set background=dark
 
 filetype plugin indent on
