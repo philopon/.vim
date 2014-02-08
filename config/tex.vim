@@ -8,7 +8,7 @@ if neobundle#tap('LaTeX-Box')
     let g:LatexBox_output_type = 'pdf'
     let g:LatexBox_viewer = 'open -a Skim'
 
-    augroup latex_box_keymap
+    augroup config_tex_keymap
       autocmd!
       autocmd FileType tex imap <buffer> [[     \begin{
       autocmd FileType tex imap <buffer> ]]     <Plug>LatexCloseCurEnv
@@ -43,7 +43,7 @@ if neobundle#is_installed('vim-quickrun') "{{{
         \ 'exec':         '%c -pdfdvi -quiet %s'
         \ }
 
-  augroup tex_autocompile
+  augroup config_tex_autocompile
     autocmd!
     autocmd BufWritePost *.tex QuickRun -hook/latex_compile/partial_enable 1
   augroup END

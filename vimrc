@@ -85,7 +85,7 @@ if has('lua') " Shougo/neocomplete {{{
     inoremap <expr><C-y>  neocomplete#close_popup()
     inoremap <expr><C-e>  neocomplete#cancel_popup()
 
-    augroup neocomplete_filespecific
+    augroup vimrc_neocomplete_filespecific
       autocmd!
       autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
       autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags

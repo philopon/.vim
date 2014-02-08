@@ -12,7 +12,7 @@ endif
 NeoBundleLazy 'eagletmt/ghcmod-vim', { 'autoload' : { 'filetypes': ['haskell'] } } "{{{
 if neobundle#tap('ghcmod-vim')
   function! neobundle#tapped.hooks.on_source(bundle)
-    augroup haskell_mode_keymap
+    augroup config_haskell
       autocmd!
       autocmd FileType haskell noremap <buffer> <silent> [space]t :<C-u>GhcModType<CR>
     augroup END
