@@ -19,8 +19,10 @@ if neobundle#tap('LaTeX-Box')
     augroup END
   endfunction
 
-  let g:neocomplete#force_omni_input_patterns.tex =
-        \ '\v\\\a*(ref|cite)\a*([^]]*\])?\{(|[^}]*,)'
+  if exists('g:neocomplete#force_omni_input_patterns')
+    let g:neocomplete#force_omni_input_patterns.tex =
+          \ '\v\\\a*(ref|cite)\a*([^]]*\])?\{(|[^}]*,)'
+  endif
   
   call neobundle#untap()
 endif

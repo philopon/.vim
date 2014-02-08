@@ -1,5 +1,6 @@
 .netrwhist
 backup
-bundle
+bundle/*
+!bundle/neobundle.vim
 undo
 view
