@@ -1,7 +1,7 @@
 let s:save_cpo = &cpo
 set cpo&vim
 
-function! s:delete_unused_lines(lines)
+function! s:delete_unused_lines(lines) "{{{
   let l:result = a:lines
   let l:index = 0
   while l:index < len(a:lines)
@@ -11,7 +11,7 @@ function! s:delete_unused_lines(lines)
     let l:index += 1
   endwhile
   return l:result
-endfunction
+endfunction "}}}
 
 let s:latex_partial_markers = [
       \   ['^\s*\(\\\|% Fake\)subsubsection\>', 5],
@@ -22,6 +22,7 @@ let s:latex_partial_markers = [
       \ ]
 
 let g:latex_minimum_level = 3
+let g:display_line_executable = '/Applications/Skim.app/Contents/SharedSupport/displayline'
 
 function! s:get_target_region_start(lnum) "{{{
   let l:lnum = a:lnum
@@ -52,10 +53,13 @@ function! s:get_target_region_end(level, lnum) "{{{
 endfunction "}}}
 
 function! s:get_preamble_and_partial_tex(lnum) "{{{
-  let l:lnum = 0
+  let l:lnum     = 0
   let l:preamble = []
-  let l:result = []
+  let l:result   = []
+  let [l:start, l:level] = s:get_target_region_start(a:lnum)
+  let l:end              = s:get_target_region_end(l:level, a:lnum)
 
+  " Preamble Process {{{
   while l:lnum <= line('$')
     let l:lnum += 1
     let l:line = getline(l:lnum)
@@ -64,14 +68,14 @@ function! s:get_preamble_and_partial_tex(lnum) "{{{
       break
     endif
     call add(l:preamble, l:line)
-  endwhile
+  endwhile " }}}
 
-  let [l:start, l:level] = s:get_target_region_start(a:lnum)
-  let l:end = s:get_target_region_end(l:level, a:lnum)
-
+  " Document Process {{{
   while l:lnum <= line('$')
     let l:lnum += 1
     let l:line = getline(l:lnum)
+
+    let l:line = substitute(l:line, '\\begin{\s*figure\s*}\(\[.*\]\)\?', '\\begin{figure}[h]', 'g')
 
     if l:line =~# '\s*\\end\s*{\s*document\s*}'
       call add(l:result, l:line)
@@ -81,8 +85,9 @@ function! s:get_preamble_and_partial_tex(lnum) "{{{
     else
       call add(l:result, '')
     endif
-  endwhile
+  endwhile "}}}
 
+  " Preamble Modify {{{
   if l:level > 0
     let l:preamble_op = split(substitute(getline(l:start), '.*%\s*\(p\|P\)reamble\s*:\s*', '', ''), ',')
     let l:index = 0
@@ -108,8 +113,10 @@ function! s:get_preamble_and_partial_tex(lnum) "{{{
       endif
       let l:index += 1
     endwhile
-  endif
+  endif "}}}
+
   return extend(l:preamble, l:result)
+
 endfunction "}}}
 
 function! s:modify_filepath_in_log(file, orig, mod) "{{{
@@ -131,20 +138,23 @@ let s:hook = {
       \   }
       \ }
 
-function! s:hook.on_module_loaded(session, context)
+function! s:hook.on_module_loaded(session, context) "{{{
   if self.config.partial_enable
     let self.config.original     = a:session.config.srcfile
+    let l:line = line('.')
     let a:session.config.srcfile = fnamemodify(a:session.config.srcfile, ':r') . self.config.partial_suffix . '.tex'
-    call writefile(s:get_preamble_and_partial_tex(line('.')), a:session.config.srcfile)
+    let a:session.config.line    = l:line
+    call writefile(s:get_preamble_and_partial_tex(l:line), a:session.config.srcfile)
   endif
-endfunction
+endfunction "}}}
 
-function! s:hook.on_success(session, context)
+function! s:hook.on_success(session, context) "{{{
+  call system(g:display_line_executable . ' -g -r ' . a:session.config.line . ' ' . fnamemodify(a:session.config.srcfile, ':r') . '.pdf')
   echomsg 'Compile Success'
   cclose
-endfunction
+endfunction "}}}
 
-function! s:hook.on_failure(session, context)
+function! s:hook.on_failure(session, context) "{{{
   if self.config.partial_enable
     let l:logfile = fnamemodify(a:session.config.srcfile, ':r') . '.log'
     call s:modify_filepath_in_log(l:logfile, self.config.original, a:session.config.srcfile)
@@ -153,7 +163,7 @@ function! s:hook.on_failure(session, context)
     cfile `=fnamemodify(a:session.config.srcfile, ':r') . '.log'`
   endif
   copen
-endfunction
+endfunction "}}}
 
 function! quickrun#hook#latex_compile#new()
   return deepcopy(s:hook)

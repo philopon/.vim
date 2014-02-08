@@ -28,6 +28,8 @@ endif
 
 if neobundle#is_installed('vim-quickrun') "{{{
 
+  let $max_print_line = 9999
+
   let g:quickrun_config.tex = {
         \ 'command': 'latexmk',
         \ 'outputter': 'null',
