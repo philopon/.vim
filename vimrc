@@ -116,6 +116,18 @@ NeoBundle 'kana/vim-smartchr'
 
 NeoBundle 'vim-scripts/restore_view.vim'
 
+NeoBundle 'itchyny/lightline.vim' "{{{
+NeoBundle 'cocopon/lightline-hybrid.vim'
+if neobundle#is_installed('lightline.vim')
+  if !exists('g:lightline')
+    let g:lightline = {}
+  endif
+  if neobundle#is_installed('lightline-hybrid.vim')
+    let g:lightline.colorscheme = 'hybrid'
+  endif
+
+endif "}}}
+
 NeoBundle 'aperezdc/vim-template' "{{{
 if neobundle#is_installed('vim-template')
   let g:template_dir = '~/.vim/template'
