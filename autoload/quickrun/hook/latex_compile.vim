@@ -164,6 +164,7 @@ function! s:hook.on_failure(session, context) "{{{
   else
     cfile `=fnamemodify(a:session.config.srcfile, ':r') . '.log'`
   endif
+  call system('latexmk -C ' . a:session.config.srcfile)
   copen
 endfunction "}}}
 
