@@ -149,7 +149,9 @@ function! s:hook.on_module_loaded(session, context) "{{{
 endfunction "}}}
 
 function! s:hook.on_success(session, context) "{{{
-  call system(g:display_line_executable . ' -g -r ' . a:session.config.line . ' ' . fnamemodify(a:session.config.srcfile, ':r') . '.pdf')
+  if self.config.partial_enable
+    call system(g:display_line_executable . ' -g -r ' . a:session.config.line . ' ' . fnamemodify(a:session.config.srcfile, ':r') . '.pdf')
+  endif
   echomsg 'Compile Success'
   cclose
 endfunction "}}}
