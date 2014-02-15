@@ -135,6 +135,66 @@ if neobundle#is_installed('lightline.vim')
   if neobundle#is_installed('lightline-hybrid.vim')
     let g:lightline.colorscheme = 'hybrid'
   endif
+  let g:lightline.component = {
+        \ 'readonly': '%{&readonly?"\u2b64":""}',
+        \ 'paste':    '%{&paste?"\u270e":""}',
+        \ 'dummy': ''
+        \ }
+  let g:lightline.component_function = {
+        \ 'fugitive': 'MyFugitive',
+        \ 'filename': 'MyFilename',
+        \ 'fileencoding': 'MyEncoding',
+        \ 'gitgutter': 'MyGitGutter'
+        \ }
+
+  function! MyFugitive()
+    if exists("*fugitive#head")
+      let _ = fugitive#head()
+      return strlen(_) ? "\u2b60"._ : ''
+    endif
+    return ''
+  endfunction
+
+  function! MyGitGutter()
+    if exists('*GitGutterGetHunkSummary')
+      let [plus, modify, minus] = GitGutterGetHunkSummary()
+      if plus != 0 || modify != 0 || minus != 0
+        return '+' . plus . ' ~' . modify . ' -' . minus
+      endif 
+    endif
+    return ''
+  endfunction
+
+  function! MyFilename()
+    let _ = expand("%:t")
+    let result = "" != _ ? _ : '[No Name]'
+    if &filetype != 'help' && &modified
+      let result = result . " +"
+    endif
+    return result
+  endfunction
+
+  function! MyEncoding()
+    let result = strlen(&fenc) ? &fenc : &enc
+    if &fileformat == 'dos'
+      let result = result . "\u21b2"
+    elseif &fileformat == 'mac'
+      let result = result . "\u2190"
+    else
+      let result = result . "\u2193"
+    endif
+    return result
+  endfunction
+
+  let g:lightline.separator = { 'left': "\u2b80", 'right': "\u2b82" }
+  let g:lightline.subseparator = { 'left': "\u2b81", 'right': "\u2b83" }
+
+  let g:lightline.active = {
+        \ 'left' : [['paste'], ['fugitive', 'gitgutter'], ['readonly', 'filename']],
+        \ 'right': [['lineinfo'], ['dummy'], ['filetype', 'fileencoding']]
+        \ }
+
+  set ambiwidth=double
 
 endif "}}}
 
