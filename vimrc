@@ -117,14 +117,7 @@ NeoBundle 'kana/vim-smartchr'
 NeoBundle 'vim-scripts/restore_view.vim'
 
 NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'airblade/vim-gitgutter' "{{{
-if neobundle#is_installed('vim-gitgutter')
-  augroup vimrc_gitgutter
-    autocmd!
-    autocmd InsertLeave * GitGutterAll
-    autocmd InsertEnter * GitGutterAll
-  augroup END
-endif "}}}
+NeoBundle 'airblade/vim-gitgutter'
 
 NeoBundle 'itchyny/lightline.vim' "{{{
 NeoBundle 'cocopon/lightline-hybrid.vim'
