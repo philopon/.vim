@@ -110,6 +110,13 @@ NeoBundle 'vim-scripts/restore_view.vim'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'airblade/vim-gitgutter'
 
+NeoBundle 'kien/ctrlp.vim' "{{{
+if neobundle#is_installed('ctrlp.vim')
+  let g:ctrlp_use_migemo = 1
+  nnoremap [space]p :<C-U>CtrlPMixed<CR>
+  nnoremap [space]b :<C-U>CtrlPBuffer<CR>
+endif "}}}
+
 NeoBundle 'itchyny/lightline.vim' "{{{
 NeoBundle 'cocopon/lightline-hybrid.vim'
 if neobundle#is_installed('lightline.vim')
