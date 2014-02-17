@@ -39,9 +39,7 @@ noremap : ;
 nmap zf zMzv
 nmap zF zMzvzczO
 nnoremap [space] <Nop>
-nnoremap [unite] <Nop>
 nmap <Space>  [space]
-nmap [space]u [unite]
 
 if has('migemo')
   nnoremap / g/

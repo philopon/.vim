@@ -29,18 +29,6 @@ NeoBundle 'Shougo/vimproc', {
       \ }
 "}}}
 
-NeoBundle 'Shougo/unite.vim' "{{{
-if neobundle#is_installed('unite.vim')
-  let g:unite_enable_start_insert=1
-  let g:unite_source_history_yank_enable = 1
-  nnoremap <silent> [unite]f :<C-u>Unite file file/new<CR>
-  nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
-  nnoremap <silent> [unite]p :<C-u>Unite history/yank<CR>
-endif
-"}}}
-
-NeoBundle 'osyo-manga/unite-quickfix'
-
 NeoBundle 'osyo-manga/vim-watchdogs'
 
 NeoBundle 'scrooloose/syntastic' "{{{
