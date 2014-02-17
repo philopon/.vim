@@ -189,10 +189,13 @@ if neobundle#is_installed('lightline.vim')
 
 endif "}}}
 
-NeoBundle 'aperezdc/vim-template' "{{{
-if neobundle#is_installed('vim-template')
-  let g:template_dir = '~/.vim/template'
+NeoBundle 'mattn/sonictemplate-vim' "{{{
+if neobundle#is_installed('sonictemplate-vim')
+  let g:sonictemplate_vim_template_dir = '~/.vim/template'
+  nnoremap [space]t :<C-u>CtrlPSonictemplate<CR>
 endif
+
+NeoBundle 'kaneshin/ctrlp-sonictemplate'
 "}}}
 
 NeoBundle 'kana/vim-textobj-user'
