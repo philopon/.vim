@@ -29,8 +29,6 @@ NeoBundle 'Shougo/vimproc', {
       \ }
 "}}}
 
-NeoBundle 'osyo-manga/vim-watchdogs'
-
 NeoBundle 'scrooloose/syntastic' "{{{
 if neobundle#is_installed('syntastic')
   let g:syntastic_always_populate_loc_list=1
