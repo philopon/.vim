@@ -46,6 +46,9 @@ NeoBundle 'osyo-manga/vim-watchdogs'
 NeoBundle 'scrooloose/syntastic' "{{{
 if neobundle#is_installed('syntastic')
   let g:syntastic_always_populate_loc_list=1
+  let g:syntastic_enable_highlighting = 1
+  let g:syntastic_error_symbol = "\u2717"
+  let g:syntastic_warning_symbol = "\u26a0"
   autocmd CursorHold * SyntasticCheck
   nnoremap [space]j :<c-u>lnext<CR>
   nnoremap [space]k :<c-u>lprevious<CR>
