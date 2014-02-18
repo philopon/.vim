@@ -43,9 +43,20 @@ if neobundle#is_installed('vim-quickrun') "{{{
         \ 'exec':         '%c -pdfdvi -quiet %s'
         \ }
 
+  let b:latex_auto_partial_compile = 1
+  let g:latex_auto_partial_compile = 1
+
+  function! s:latex_partial_compile()
+    if b:latex_auto_partial_compile && g:latex_auto_partial_compile
+      QuickRun -hook/latex_compile/partial_enable 1
+    endif
+  endfunction
+
   augroup config_tex_autocompile
     autocmd!
-    autocmd BufWritePost *.tex QuickRun -hook/latex_compile/partial_enable 1
+    autocmd QuitPre *.tex let g:latex_auto_partial_compile = 0
+    autocmd BufRead ~/.vim/template/tex/* let b:latex_auto_partial_compile = 0
+    autocmd BufWritePost *.tex call s:latex_partial_compile()
   augroup END
 endif
 "}}}
