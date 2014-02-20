@@ -41,10 +41,6 @@ nmap zF zMzvzczO
 nnoremap [space] <Nop>
 nmap <Space>  [space]
 
-if has('migemo')
-  nnoremap / g/
-endif
-
 """ color scheme
 NeoBundle 'w0ng/vim-hybrid'
 if neobundle#is_installed('vim-hybrid')
