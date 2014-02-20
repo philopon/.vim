@@ -190,7 +190,17 @@ endif "}}}
 NeoBundle 'mattn/sonictemplate-vim' "{{{
 if neobundle#is_installed('sonictemplate-vim')
   let g:sonictemplate_vim_template_dir = '~/.vim/template'
-  nnoremap [space]t :<C-u>CtrlPSonictemplate<CR>
+
+  function! g:new_file_template()
+    if !search('[^ \t]', 'wn')
+      CtrlPSonictemplate
+    endif
+  endfunction
+
+  augroup vimrc_sonictemplate_autoopen
+    autocmd!
+    autocmd VimEnter * call g:new_file_template()
+  augroup END
 endif
 
 NeoBundle 'kaneshin/ctrlp-sonictemplate'
