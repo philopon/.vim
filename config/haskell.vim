@@ -1,4 +1,6 @@
-auto FileType haskell setlocal shiftwidth=1
+augroup config_haskell
+  autocmd FileType Haskell setlocal softtabstop=4 shiftwidth=4 
+augroup END
 
 NeoBundleLazy 'dag/vim2hs', { 'autoload' : { 'filetypes': ['haskell'] } } "{{{
 if neobundle#tap('vim2hs')
@@ -23,5 +25,6 @@ endif
 
 NeoBundleLazy 'ujihisa/neco-ghc', { 'autoload' : { 'filetypes': ['haskell'] } }
 
+NeoBundle 'philopon/haskell-indent.vim'
 
 

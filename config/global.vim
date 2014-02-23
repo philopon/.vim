@@ -1,3 +1,6 @@
+syntax enable
+set cindent
+
 """ Sync clipboard
 set clipboard=unnamed,autoselect
 
@@ -7,6 +10,7 @@ set backspace=2
 set showcmd
 
 set foldmethod=marker
+set viewoptions=cursor,folds
 
 set tabstop=2
 set shiftwidth=2

@@ -1,5 +1,4 @@
 if has('vim_starting') " NeoBundle {{{
-  set nocompatible
   set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
@@ -101,7 +100,6 @@ endif
 "}}}
 
 NeoBundle 'tpope/vim-surround'
-NeoBundle 'kana/vim-smartchr'
 
 NeoBundle 'vim-scripts/restore_view.vim'
 
