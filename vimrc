@@ -101,17 +101,30 @@ endif
 
 NeoBundle 'tpope/vim-surround'
 
+NeoBundle 'LeafCage/yankround.vim' "{{{
+if neobundle#is_installed('yankround.vim')
+  nmap p  <Plug>(yankround-p)
+  nmap P  <Plug>(yankround-P)
+  nmap gp <Plug>(yankround-gp)
+  nmap gP <Plug>(yankround-gP)
+  nmap <c-p> <Plug>(yankround-prev)
+  nmap <c-n> <Plug>(yankround-next)
+  let g:yankround_use_region_hl = 1
+  nnoremap [space]p :<c-u>Unite yankround<CR>
+endif
+"}}}
+
 NeoBundle 'vim-scripts/restore_view.vim'
 
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'airblade/vim-gitgutter'
 
-NeoBundle 'kien/ctrlp.vim' "{{{
-if neobundle#is_installed('ctrlp.vim')
-  let g:ctrlp_use_migemo = 1
-  nnoremap [space]p :<C-U>CtrlPMixed<CR>
-  nnoremap [space]b :<C-U>CtrlPBuffer<CR>
-endif "}}}
+NeoBundle 'Shougo/unite.vim' "{{{
+if neobundle#is_installed('unite.vim')
+  let g:unite_enable_start_insert = 1
+  nnoremap [space]b :<c-u>Unite buffer<CR>
+endif
+"}}}
 
 NeoBundle 'itchyny/lightline.vim' "{{{
 NeoBundle 'cocopon/lightline-hybrid.vim'
