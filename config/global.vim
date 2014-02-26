@@ -1,4 +1,3 @@
-syntax enable
 set cindent
 
 """ Sync clipboard
@@ -55,4 +54,5 @@ endif
 
 set background=dark
 
+syntax enable
 filetype plugin indent on
