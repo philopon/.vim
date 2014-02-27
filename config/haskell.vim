@@ -25,6 +25,5 @@ endif
 
 NeoBundleLazy 'ujihisa/neco-ghc', { 'autoload' : { 'filetypes': ['haskell'] } }
 
-NeoBundle 'philopon/haskell-indent.vim'
-
+NeoBundle 'git@github.com:philopon/haskell-indent.vim.git'
 

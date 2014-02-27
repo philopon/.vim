@@ -28,7 +28,8 @@ if neobundle#tap('LaTeX-Box')
 endif
 "}}}
 
-if neobundle#is_installed('vim-quickrun') "{{{
+NeoBundle 'git@github.com:philopon/latexmk-partial.vim.git'
+if neobundle#is_installed('latexmk-partial.vim') "{{{
 
   let $max_print_line = 9999
 
@@ -42,6 +43,8 @@ if neobundle#is_installed('vim-quickrun') "{{{
         \ 'hook/cd/directory': '%S:h',
         \ 'exec':         '%c -pdfdvi -quiet %s'
         \ }
+
+  let g:latexmk_partial_previewer = '/Applications/Skim.app/Contents/SharedSupport/displayline -g -r %l %f'
 
   let b:latex_auto_partial_compile = 1
   let g:latex_auto_partial_compile = 1
