@@ -119,9 +119,12 @@ NeoBundle 'vim-scripts/restore_view.vim'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'airblade/vim-gitgutter'
 
+NeoBundle 'Shougo/context_filetype.vim'
+
 NeoBundle 'Shougo/unite.vim' "{{{
 if neobundle#is_installed('unite.vim')
   let g:unite_enable_start_insert = 1
+  nnoremap [space]u :<c-u>Unite<CR>
   nnoremap [space]b :<c-u>Unite buffer<CR>
 endif
 "}}}

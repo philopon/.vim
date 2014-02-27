@@ -33,14 +33,14 @@ set undofile
 set undolevels=2000
 
 """ Keymap
-imap <c-j> <esc>
-nmap <c-j> <esc>
-cmap <c-j> <esc>
-vmap <c-j> <esc>
+inoremap <c-j> <esc>
+nnoremap <c-j> :<c-u>nohlsearch<CR>
+cnoremap <c-j> <esc>
+vnoremap <c-j> <esc>
 noremap ; :
 noremap : ;
-nmap zf zMzv
-nmap zF zMzvzczO
+nnoremap zf zMzv
+nnoremap zF zMzvzczO
 nnoremap [space] <Nop>
 nmap <Space>  [space]
 
