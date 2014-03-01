@@ -7,7 +7,15 @@ call neobundle#rc(expand('~/.vim/bundle'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 "}}}
 
-NeoBundle 'thinca/vim-quickrun' "{{{
+" autoload -> commands, filetype, mappings, functions
+"    commands -> hoge || {'name': hoge, 'complete': huga}
+
+" Nebula LeafCage/nebula.vim {{{
+NeoBundleLazy 'LeafCage/nebula.vim', {'autoload': {'commands': ['NebulaPutLazy', 'NebulaPutFromClipboard', 'NebulaYankOptions', 'NebulaYankConfig', 'NebulaPutConfig', 'NebulaYankTap']}}
+" }}}
+
+" Nebula thinca/vim-quickrun {{{
+NeoBundleLazy 'thinca/vim-quickrun', {'autoload': {'mappings': [['sxn', '<Plug>(quickrun']], 'commands': [{'complete': 'customlist,quickrun#complete', 'name': 'QuickRun'}]}}
 if neobundle#is_installed('vim-quickrun')
   nnoremap [space]r :<C-u>QuickRun<CR>
   nnoremap [space]R :<C-u>QuickRun -args 
@@ -17,18 +25,19 @@ if neobundle#is_installed('vim-quickrun')
 endif
 "}}}
 
-" Shougo/vimproc {{{
-NeoBundle 'Shougo/vimproc', {
-      \ 'build' : {
-      \     'windows' : 'make -f make_mingw32.mak',
-      \     'cygwin' : 'make -f make_cygwin.mak',
-      \     'mac' : 'make -f make_mac.mak',
-      \     'unix' : 'make -f make_unix.mak',
-      \    },
+" Nebula Shougo/vimproc {{{
+NeoBundleLazy 'Shougo/vimproc', {'autoload': {'commands': [{'complete': 'shellcmd', 'name': 'VimProcBang'}, {'complete': 'shellcmd', 'name': 'VimProcRead'}]}
+      \,'build' : {
+      \   'windows' : 'make -f make_mingw32.mak',
+      \   'cygwin' : 'make -f make_cygwin.mak',
+      \   'mac' : 'make -f make_mac.mak',
+      \   'unix' : 'make -f make_unix.mak',
+      \   }
       \ }
 "}}}
 
-NeoBundle 'scrooloose/syntastic' "{{{
+" Nebula scrooloose/syntastic {{{
+NeoBundleLazy 'scrooloose/syntastic', {'autoload': {'commands': [{'complete': 'custom,s:CompleteCheckerName', 'name': 'SyntasticCheck'}, {'complete': 'custom,s:CompleteFiletypes', 'name': 'SyntasticInfo'}, 'Errors', 'SyntasticSetLoclist', 'SyntasticReset', 'SyntasticToggleMode']}}
 if neobundle#is_installed('syntastic')
   let g:syntastic_always_populate_loc_list=1
   let g:syntastic_enable_highlighting = 1
@@ -40,13 +49,15 @@ if neobundle#is_installed('syntastic')
 endif
 "}}}
 
-NeoBundle 'sjl/gundo.vim' "{{{
+" Nebula sjl/gundo.vim {{{
+NeoBundleLazy 'sjl/gundo.vim', {'autoload': {'commands': ['GundoHide', 'GundoShow', 'GundoRenderGraph', 'GundoToggle']}}
 if neobundle#is_installed('gundo.vim')
   nnoremap [space]g :<C-u>GundoToggle<CR>
 endif
 "}}}
 
-if has('lua') " Shougo/neocomplete {{{
+" Strict Shougo/neocomplete {{{
+if has('lua')
   NeoBundle 'Shougo/neocomplete'
   if neobundle#is_installed('neocomplete') 
     let g:acp_enableAtStartup = 0
@@ -89,7 +100,8 @@ if has('lua') " Shougo/neocomplete {{{
 endif
 "}}}
 
-NeoBundle 'Shougo/neosnippet.vim' "{{{
+" Strict Shougo/neosnippet.vim {{{
+NeoBundle 'Shougo/neosnippet.vim'
 NeoBundle 'git@github.com:philopon/neosnippet-snippets.git'
 if neobundle#is_installed('neosnippet.vim')
   " Plugin key-mappings.
@@ -101,7 +113,8 @@ endif
 
 NeoBundle 'tpope/vim-surround'
 
-NeoBundle 'LeafCage/yankround.vim' "{{{
+" Nebula LeafCage/yankround.vim {{{
+NeoBundleLazy 'LeafCage/yankround.vim', {'autoload': {'unite_sources': ['yankround'], 'mappings': [['n', '<Plug>(yankround-']]}}
 if neobundle#is_installed('yankround.vim')
   nmap p  <Plug>(yankround-p)
   nmap P  <Plug>(yankround-P)
@@ -117,11 +130,14 @@ endif
 NeoBundle 'vim-scripts/restore_view.vim'
 
 NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'airblade/vim-gitgutter'
+" Nebula airblade/vim-gitgutter {{{
+NeoBundleLazy 'airblade/vim-gitgutter', {'autoload': {'mappings': [['n', '<Plug>GitGutter']], 'commands': ['GitGutterToggle', 'GitGutterPrevHunk', 'GitGutter', 'GitGutterLineHighlightsToggle', 'GitGutterRevertHunk', 'GitGutterSignsEnable', 'GitGutterNextHunk', 'GitGutterDisable', 'GitGutterStageHunk', 'GitGutterEnable', 'GitGutterSignsToggle', 'GitGutterAll', 'GitGutterLineHighlightsEnable', 'GitGutterLineHighlightsDisable', 'GitGutterDebug', 'GitGutterSignsDisable']}}
+"}}}
 
 NeoBundle 'Shougo/context_filetype.vim'
 
-NeoBundle 'Shougo/unite.vim' "{{{
+" Nebula Shougo/unite.vim {{{
+NeoBundleLazy 'Shougo/unite.vim', {'augroup': 'plugin', 'autoload': {'unite_sources': ['action', 'alias', 'bookmark', 'buffer', 'change', 'command', 'directory', 'file', 'file_point', 'find', 'function', 'grep', 'history_input', 'history_yank', 'interactive', 'jump', 'jump_point', 'launcher', 'line', 'mapping', 'menu', 'mru', 'output', 'process', 'rec', 'register', 'resume', 'runtimepath', 'source', 'tab', 'undo', 'vimgrep', 'window'], 'commands': [{'complete': 'customlist,unite#complete#source', 'name': 'UniteWithCurrentDir'}, {'complete': 'customlist,unite#complete#source', 'name': 'Unite'}, {'complete': 'customlist,unite#complete#source', 'name': 'UniteWithInputDirectory'}, {'complete': 'customlist,unite#complete#buffer_name', 'name': 'UniteClose'}, {'complete': 'file', 'name': 'UniteBookmarkAdd'}, {'complete': 'customlist,unite#complete#buffer_name', 'name': 'UniteResume'}, {'complete': 'customlist,unite#complete#source', 'name': 'UniteWithBufferDir'}, {'complete': 'customlist,unite#complete#source', 'name': 'UniteWithCursorWord'}, {'complete': 'customlist,unite#complete#source', 'name': 'UniteWithInput'}]}}
 if neobundle#is_installed('unite.vim')
   let g:unite_enable_start_insert = 1
   nnoremap [space]u :<c-u>Unite<CR>
@@ -201,7 +217,8 @@ if neobundle#is_installed('lightline.vim')
 
 endif "}}}
 
-NeoBundle 'mattn/sonictemplate-vim' "{{{
+" Nebula mattn/sonictemplate-vim {{{
+NeoBundleLazy 'mattn/sonictemplate-vim', {'autoload': {'unite_sources': ['sonictemplate'], 'mappings': [['in', '<Plug>(sonictemplate']]}}
 if neobundle#is_installed('sonictemplate-vim')
   let g:sonictemplate_vim_template_dir = '~/.vim/template'
 

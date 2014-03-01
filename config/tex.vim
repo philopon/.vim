@@ -28,8 +28,8 @@ if neobundle#tap('LaTeX-Box')
 endif
 "}}}
 
-NeoBundle 'git@github.com:philopon/latexmk-partial.vim.git'
-if neobundle#is_installed('latexmk-partial.vim') "{{{
+NeoBundle 'git@github.com:philopon/latexmk-partial.vim.git' , { 'autoload' : { 'filetypes': ['tex'] } } "{{{
+if neobundle#is_installed('latexmk-partial.vim')
 
   let $max_print_line = 9999
 
