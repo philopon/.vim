@@ -232,6 +232,19 @@ NeoBundle 'kana/vim-textobj-lastpat'
 NeoBundle 'kana/vim-textobj-fold'
 NeoBundle 'mattn/vim-textobj-url'
 
+" Nebula Lokaltog/vim-easymotion {{{
+NeoBundleLazy 'Lokaltog/vim-easymotion', {'autoload': {'mappings': [['sxno', '<Plug>(easymotion-']], 'commands': ['EMCommandLineNoreMap', 'EMCommandLineMap', 'EMCommandLineUnMap']}}
+if neobundle#is_installed('vim-easymotion')
+  nmap s <Plug>(easymotion-s)
+  vmap s <Plug>(easymotion-s)
+  omap z <Plug>(easymotion-s)
+  nmap [space]j <Plug>(easymotion-j)
+  nmap [space]k <Plug>(easymotion-k)
+  let g:EasyMotion_use_migemo = 1
+  let g:EasyMotion_smartcase  = 1
+endif
+" }}}
+
 " Language specific configuration {{{
 source $HOME/.vim/config/haskell.vim
 source $HOME/.vim/config/python.vim
