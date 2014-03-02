@@ -14,8 +14,12 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundleLazy 'LeafCage/nebula.vim', {'autoload': {'commands': ['NebulaPutLazy', 'NebulaPutFromClipboard', 'NebulaYankOptions', 'NebulaYankConfig', 'NebulaPutConfig', 'NebulaYankTap']}}
 " }}}
 
-" Nebula thinca/vim-quickrun {{{
-NeoBundleLazy 'thinca/vim-quickrun', {'autoload': {'mappings': [['sxn', '<Plug>(quickrun']], 'commands': [{'complete': 'customlist,quickrun#complete', 'name': 'QuickRun'}]}}
+" Lazy thinca/vim-quickrun {{{
+NeoBundleLazy 'thinca/vim-quickrun',
+      \ {'autoload': {
+      \      'mappings': [['sxn', '<Plug>(quickrun']],
+      \      'commands': [{'complete': 'customlist,quickrun#complete', 'name': 'QuickRun'}]},
+      \  'depends':  'Shougo/vimproc'}
 if neobundle#is_installed('vim-quickrun')
   nnoremap [space]r :<C-u>QuickRun<CR>
   nnoremap [space]R :<C-u>QuickRun -args 
@@ -217,8 +221,12 @@ if neobundle#is_installed('lightline.vim')
 
 endif "}}}
 
-" Nebula mattn/sonictemplate-vim {{{
-NeoBundleLazy 'mattn/sonictemplate-vim', {'autoload': {'unite_sources': ['sonictemplate'], 'mappings': [['in', '<Plug>(sonictemplate']]}}
+" Lazy mattn/sonictemplate-vim {{{
+NeoBundleLazy 'mattn/sonictemplate-vim', {'autoload': {
+      \ 'unite_sources': ['sonictemplate'],
+      \ 'mappings': [['in', '<Plug>(sonictemplate']],
+      \ 'functions': ['sonictemplate#complete'],
+      \ 'commands': [{'name': 'Template', 'complete': 'customlist,sonictemplate#complete'}]}}
 if neobundle#is_installed('sonictemplate-vim')
   let g:sonictemplate_vim_template_dir = '~/.vim/template'
 endif
@@ -249,6 +257,10 @@ endif
 source $HOME/.vim/config/haskell.vim
 source $HOME/.vim/config/python.vim
 source $HOME/.vim/config/tex.vim
+
+augroup vimrc_markdown
+  autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
+augroup END
 "}}}
 
 " Platform Specific configuration {{{

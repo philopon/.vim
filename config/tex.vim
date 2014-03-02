@@ -44,7 +44,7 @@ if neobundle#is_installed('latexmk-partial.vim')
         \ 'exec':         '%c -pdfdvi -quiet %s'
         \ }
 
-  let g:latexmk_partial_previewer = '/Applications/Skim.app/Contents/SharedSupport/displayline -g -r %l %f'
+  let g:latexmk_partial_previewer = '~/Applications/Skim.app/Contents/SharedSupport/displayline -g -r %l %f'
 
   let b:latex_auto_partial_compile = 1
   let g:latex_auto_partial_compile = 1
@@ -57,7 +57,9 @@ if neobundle#is_installed('latexmk-partial.vim')
 
   augroup config_tex_autocompile
     autocmd!
-    autocmd QuitPre *.tex let g:latex_auto_partial_compile = 0
+    if v:version >= 704
+      autocmd QuitPre *.tex let g:latex_auto_partial_compile = 0
+    endif
     autocmd BufRead ~/.vim/template/tex/* let b:latex_auto_partial_compile = 0
     autocmd BufWritePost *.tex call s:latex_partial_compile()
   augroup END

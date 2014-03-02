@@ -11,7 +11,7 @@ if neobundle#tap('vim2hs')
 endif
 "}}}
 
-NeoBundleLazy 'eagletmt/ghcmod-vim', { 'autoload' : { 'filetypes': ['haskell'] } } "{{{
+NeoBundleLazy 'eagletmt/ghcmod-vim', { 'autoload' : { 'filetypes': ['haskell'] }, 'depends': 'Shougo/vimproc' } "{{{
 if neobundle#tap('ghcmod-vim')
   function! neobundle#tapped.hooks.on_source(bundle)
     augroup config_haskell
