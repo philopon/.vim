@@ -23,6 +23,7 @@ NeoBundleLazy 'thinca/vim-quickrun',
 if neobundle#is_installed('vim-quickrun')
   nnoremap [space]r :<C-u>QuickRun<CR>
   nnoremap [space]R :<C-u>QuickRun -args 
+  nnoremap [space]s :<C-u>QuickRun -runner shell<CR>
   if !exists('g:quickrun_config')
     let g:quickrun_config = {}
   endif
@@ -41,7 +42,7 @@ NeoBundleLazy 'Shougo/vimproc', {'autoload': {'commands': [{'complete': 'shellcm
 "}}}
 
 " Nebula scrooloose/syntastic {{{
-NeoBundleLazy 'scrooloose/syntastic', {'autoload': {'commands': [{'complete': 'custom,s:CompleteCheckerName', 'name': 'SyntasticCheck'}, {'complete': 'custom,s:CompleteFiletypes', 'name': 'SyntasticInfo'}, 'Errors', 'SyntasticSetLoclist', 'SyntasticReset', 'SyntasticToggleMode']}}
+" NeoBundleLazy 'scrooloose/syntastic', {'autoload': {'commands': [{'complete': 'custom,s:CompleteCheckerName', 'name': 'SyntasticCheck'}, {'complete': 'custom,s:CompleteFiletypes', 'name': 'SyntasticInfo'}, 'Errors', 'SyntasticSetLoclist', 'SyntasticReset', 'SyntasticToggleMode']}}
 if neobundle#is_installed('syntastic')
   let g:syntastic_always_populate_loc_list=1
   let g:syntastic_enable_highlighting = 1
@@ -115,7 +116,6 @@ if neobundle#is_installed('neosnippet.vim')
 endif
 "}}}
 
-NeoBundle 'tpope/vim-surround'
 
 " Nebula LeafCage/yankround.vim {{{
 NeoBundleLazy 'LeafCage/yankround.vim', {'autoload': {'unite_sources': ['yankround'], 'mappings': [['n', '<Plug>(yankround-']]}}
@@ -134,9 +134,7 @@ endif
 NeoBundle 'vim-scripts/restore_view.vim'
 
 NeoBundle 'tpope/vim-fugitive'
-" Nebula airblade/vim-gitgutter {{{
-NeoBundleLazy 'airblade/vim-gitgutter', {'autoload': {'mappings': [['n', '<Plug>GitGutter']], 'commands': ['GitGutterToggle', 'GitGutterPrevHunk', 'GitGutter', 'GitGutterLineHighlightsToggle', 'GitGutterRevertHunk', 'GitGutterSignsEnable', 'GitGutterNextHunk', 'GitGutterDisable', 'GitGutterStageHunk', 'GitGutterEnable', 'GitGutterSignsToggle', 'GitGutterAll', 'GitGutterLineHighlightsEnable', 'GitGutterLineHighlightsDisable', 'GitGutterDebug', 'GitGutterSignsDisable']}}
-"}}}
+NeoBundle 'airblade/vim-gitgutter'
 
 NeoBundle 'Shougo/context_filetype.vim'
 
@@ -238,7 +236,14 @@ NeoBundle 'kana/vim-textobj-user'
 NeoBundle 'kana/vim-textobj-line'
 NeoBundle 'kana/vim-textobj-lastpat'
 NeoBundle 'kana/vim-textobj-fold'
+NeoBundle 'kana/vim-textobj-entire'
 NeoBundle 'mattn/vim-textobj-url'
+
+NeoBundle 'kana/vim-operator-user'
+NeoBundle 'emonkak/vim-operator-comment'
+
+NeoBundle 'rizzatti/funcoo.vim'
+NeoBundle 'rizzatti/dash.vim'
 
 " Nebula Lokaltog/vim-easymotion {{{
 NeoBundleLazy 'Lokaltog/vim-easymotion', {'autoload': {'mappings': [['sxno', '<Plug>(easymotion-']], 'commands': ['EMCommandLineNoreMap', 'EMCommandLineMap', 'EMCommandLineUnMap']}}

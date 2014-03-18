@@ -17,13 +17,19 @@ if neobundle#tap('ghcmod-vim')
     augroup config_haskell
       autocmd!
       autocmd FileType haskell noremap <buffer> <silent> [space]t :<C-u>GhcModType<CR>
+      autocmd BufWritePost,FileWritePost *.hs GhcModCheckAsync
     augroup END
   endfunction
   call neobundle#untap()
 endif
 "}}}
 
-NeoBundleLazy 'ujihisa/neco-ghc', { 'autoload' : { 'filetypes': ['haskell'] } }
+" NeoBundleLazy 'ujihisa/neco-ghc', { 'autoload' : { 'filetypes': ['haskell'] } }
 
 NeoBundleLazy 'git@github.com:philopon/haskell-indent.vim.git', { 'autoload' : { 'filetypes': ['haskell'] } }
 
+NeoBundle 'git@github.com:philopon/hassistant.vim.git', { 'build' : { 'mac' : 'sh build.sh'} }
+
+if exists('g:quickrun_config')
+  let g:quickrun_config.haskell = { 'command': 'runsandbox' }
+endif
