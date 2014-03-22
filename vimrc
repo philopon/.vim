@@ -7,9 +7,6 @@ call neobundle#rc(expand('~/.vim/bundle'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 "}}}
 
-" autoload -> commands, filetype, mappings, functions
-"    commands -> hoge || {'name': hoge, 'complete': huga}
-
 " Nebula LeafCage/nebula.vim {{{
 NeoBundleLazy 'LeafCage/nebula.vim', {'autoload': {'commands': ['NebulaPutLazy', 'NebulaPutFromClipboard', 'NebulaYankOptions', 'NebulaYankConfig', 'NebulaPutConfig', 'NebulaYankTap']}}
 " }}}

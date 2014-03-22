@@ -34,7 +34,7 @@ set undolevels=2000
 
 """ Keymap
 inoremap <c-j> <esc>
-nnoremap <c-j> :<c-u>nohlsearch<CR>
+nnoremap <silent> <c-j> :<c-u>nohlsearch<CR>
 cnoremap <c-j> <esc>
 vnoremap <c-j> <esc>
 noremap ; :
