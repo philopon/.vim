@@ -113,7 +113,6 @@ if neobundle#is_installed('neosnippet.vim')
 endif
 "}}}
 
-
 " Nebula LeafCage/yankround.vim {{{
 NeoBundleLazy 'LeafCage/yankround.vim', {'autoload': {'unite_sources': ['yankround'], 'mappings': [['n', '<Plug>(yankround-']]}}
 if neobundle#is_installed('yankround.vim')
@@ -241,6 +240,8 @@ NeoBundle 'emonkak/vim-operator-comment'
 
 NeoBundle 'rizzatti/funcoo.vim'
 NeoBundle 'rizzatti/dash.vim'
+
+NeoBundle 'Shougo/vimshell.vim'
 
 " Nebula Lokaltog/vim-easymotion {{{
 NeoBundleLazy 'Lokaltog/vim-easymotion', {'autoload': {'mappings': [['sxno', '<Plug>(easymotion-']], 'commands': ['EMCommandLineNoreMap', 'EMCommandLineMap', 'EMCommandLineUnMap']}}

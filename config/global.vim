@@ -37,6 +37,7 @@ inoremap <c-j> <esc>
 nnoremap <silent> <c-j> :<c-u>nohlsearch<CR>
 cnoremap <c-j> <esc>
 vnoremap <c-j> <esc>
+nnoremap x "_x
 noremap ; :
 noremap : ;
 nnoremap zf zMzv
