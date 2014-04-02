@@ -1,3 +1,5 @@
+set rtp+=~/.vim/develop
+
 if has('vim_starting') " NeoBundle {{{
   set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
@@ -68,6 +70,7 @@ if has('lua')
     let g:neocomplete#force_overwrite_completefunc = 1
     let g:neocomplete#sources#syntax#min_keyword_length = 3
     let g:neocomplete#enable_auto_close_preview = 0
+    let g:neocomplete#max_list = 15
 
     inoremap <expr><C-g>     neocomplete#undo_completion()
     inoremap <expr><C-l>     neocomplete#complete_common_string()
