@@ -1,5 +1,5 @@
 augroup config_haskell
-  autocmd FileType Haskell setlocal softtabstop=4 shiftwidth=4 
+  autocmd FileType Haskell setlocal softtabstop=4 shiftwidth=4 textwidth=0
 augroup END
 
 NeoBundleLazy 'dag/vim2hs', { 'autoload' : { 'filetypes': ['haskell'] } } "{{{
@@ -14,7 +14,7 @@ endif
 NeoBundleLazy 'eagletmt/ghcmod-vim', { 'autoload' : { 'filetypes': ['haskell'] }, 'depends': 'Shougo/vimproc' } "{{{
 if neobundle#tap('ghcmod-vim')
   function! neobundle#tapped.hooks.on_source(bundle)
-    augroup config_haskell
+    augroup config_haskell_ghcmod
       autocmd!
       autocmd FileType haskell noremap <buffer> <silent> [space]t :<C-u>GhcModType<CR>
       autocmd BufWritePost,FileWritePost *.hs GhcModCheckAsync
