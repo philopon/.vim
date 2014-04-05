@@ -28,7 +28,7 @@ endif
 
 NeoBundleLazy 'git@github.com:philopon/haskell-indent.vim.git', { 'autoload' : { 'filetypes': ['haskell'] } }
 
-NeoBundle 'git@github.com:philopon/hassistant.vim.git', { 'build' : { 'mac' : 'sh build.sh'}, 'depends': 'Shougo/vimproc' }
+NeoBundle 'git@github.com:philopon/hassistant.vim.git', { 'build' : { 'mac' : 'sh build.sh', 'unix': 'sh build.sh'}, 'depends': 'Shougo/vimproc' }
 
 if exists('g:quickrun_config')
   let g:quickrun_config.haskell = { 'command': 'runsandbox' }
