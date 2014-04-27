@@ -156,8 +156,8 @@ if neobundle#is_installed('lightline.vim')
     let g:lightline.colorscheme = 'hybrid'
   endif
   let g:lightline.component = {
-        \ 'readonly': '%{&readonly?"\u2b64":""}',
-        \ 'paste':    '%{&paste?"\u270e":""}',
+        \ 'readonly': '%{&readonly?"\uE0A2":""}',
+        \ 'paste':    '%{&paste?"\u270E":""}',
         \ 'dummy': ''
         \ }
   let g:lightline.component_function = {
@@ -170,7 +170,7 @@ if neobundle#is_installed('lightline.vim')
   function! MyFugitive()
     if exists("*fugitive#head")
       let _ = fugitive#head()
-      return strlen(_) ? "\u2b60"._ : ''
+      return strlen(_) ? "\uE0A0"._ : ''
     endif
     return ''
   endfunction
@@ -206,8 +206,8 @@ if neobundle#is_installed('lightline.vim')
     return result
   endfunction
 
-  let g:lightline.separator = { 'left': "\u2b80", 'right': "\u2b82" }
-  let g:lightline.subseparator = { 'left': "\u2b81", 'right': "\u2b83" }
+  let g:lightline.separator = { 'left': "\uE0B0", 'right': "\uE0B2" }
+  let g:lightline.subseparator = { 'left': "\uE0B1", 'right': "\uE0B3" }
 
   let g:lightline.active = {
         \ 'left' : [['paste'], ['fugitive', 'gitgutter'], ['readonly', 'filename']],
@@ -242,7 +242,7 @@ NeoBundle 'kana/vim-operator-user'
 NeoBundle 'emonkak/vim-operator-comment'
 
 NeoBundle 'rizzatti/funcoo.vim'
-NeoBundle 'rizzatti/dash.vim'
+" NeoBundle 'rizzatti/dash.vim'
 
 NeoBundle 'Shougo/vimshell.vim'
 
