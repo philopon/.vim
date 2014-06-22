@@ -137,6 +137,8 @@ NeoBundle 'airblade/vim-gitgutter'
 
 NeoBundle 'Shougo/context_filetype.vim'
 
+NeoBundle 'Shougo/vimfiler.vim'
+
 " Nebula Shougo/unite.vim {{{
 NeoBundleLazy 'Shougo/unite.vim', {'augroup': 'plugin', 'autoload': {'unite_sources': ['action', 'alias', 'bookmark', 'buffer', 'change', 'command', 'directory', 'file', 'file_point', 'find', 'function', 'grep', 'history_input', 'history_yank', 'interactive', 'jump', 'jump_point', 'launcher', 'line', 'mapping', 'menu', 'mru', 'output', 'process', 'rec', 'register', 'resume', 'runtimepath', 'source', 'tab', 'undo', 'vimgrep', 'window'], 'commands': [{'complete': 'customlist,unite#complete#source', 'name': 'UniteWithCurrentDir'}, {'complete': 'customlist,unite#complete#source', 'name': 'Unite'}, {'complete': 'customlist,unite#complete#source', 'name': 'UniteWithInputDirectory'}, {'complete': 'customlist,unite#complete#buffer_name', 'name': 'UniteClose'}, {'complete': 'file', 'name': 'UniteBookmarkAdd'}, {'complete': 'customlist,unite#complete#buffer_name', 'name': 'UniteResume'}, {'complete': 'customlist,unite#complete#source', 'name': 'UniteWithBufferDir'}, {'complete': 'customlist,unite#complete#source', 'name': 'UniteWithCursorWord'}, {'complete': 'customlist,unite#complete#source', 'name': 'UniteWithInput'}]}}
 if neobundle#is_installed('unite.vim')

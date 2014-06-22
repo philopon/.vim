@@ -18,6 +18,9 @@ set autoindent
 set expandtab
 set hidden
 
+set iminsert=0 
+set imsearch=0
+
 set wildmode=longest,list
 
 if !isdirectory($HOME."/.vim/backup")
@@ -33,10 +36,6 @@ set undofile
 set undolevels=2000
 
 """ Keymap
-inoremap <c-j> <esc>
-nnoremap <silent> <c-j> :<c-u>nohlsearch<CR>
-cnoremap <c-j> <esc>
-vnoremap <c-j> <esc>
 nnoremap x "_x
 noremap ; :
 noremap : ;
