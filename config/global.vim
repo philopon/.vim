@@ -52,7 +52,17 @@ if neobundle#is_installed('vim-hybrid')
   autocmd GUIEnter * colorscheme hybrid
 endif
 
+
+""" File type
+augroup userFileType
+  autocmd BufNewFile,BufRead *.purs setlocal filetype=haskell
+augroup END
+
 set background=dark
+
+if has('gui_macvim')
+  set guifont=Ricty\ Discord\ Regular\ for\ Powerline:h13.5
+endif
 
 syntax enable
 filetype plugin indent on
