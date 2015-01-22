@@ -24,6 +24,9 @@ NeoBundle 'Shougo/vimproc.vim', {
       \    },
       \ }
 
+NeoBundle 'Shougo/vimshell.vim'
+NeoBundle 'Shougo/vimfiler.vim'
+
 NeoBundle 'Shougo/neocomplete.vim'
 NeoBundle 'Shougo/unite.vim'
 
@@ -52,12 +55,15 @@ NeoBundleLazy 'plasticboy/vim-markdown', {'autoload': {'filetypes': ['mkd']}}
 NeoBundleLazy 'kannokanno/previm', {'autoload': {'filetypes': ['mkd']}}
 
 NeoBundleLazy 'lambdatoast/elm.vim', {'autoload': {'filetypes': ['elm']}}
+
+NeoBundleLazy 'raichoo/purescript-vim', {'autoload': {'filetypes': ['purescript']}}
 " }}}
 
 source ~/.vim/config/global.vim
 source ~/.vim/config/misc.vim
 source ~/.vim/config/haskell.vim
 source ~/.vim/config/elm.vim
+source ~/.vim/config/purescript.vim
 
 " neobundle postlude {{{
 call neobundle#end()
