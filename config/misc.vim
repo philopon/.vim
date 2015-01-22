@@ -5,7 +5,6 @@ augroup END
 if neobundle#is_installed('neocomplete.vim') " {{{
   let g:neocomplete#enable_at_startup = 1
   let g:neocomplete#enable_smart_case = 1
-  let g:neocomplete#disable_auto_complete = 1
 
   inoremap <expr><C-g>     neocomplete#undo_completion()
   inoremap <expr><C-l>     neocomplete#complete_common_string()
@@ -15,8 +14,8 @@ if neobundle#is_installed('neocomplete.vim') " {{{
     return neocomplete#close_popup() . "\<CR>"
   endfunction
 
-  inoremap <expr><c-n> pumvisible() ? "\<down>" : neocomplete#start_manual_complete() 
-  inoremap <expr><c-p> pumvisible() ? "\<up>" : neocomplete#start_manual_complete() 
+  " inoremap <expr><c-n> pumvisible() ? "\<down>" : neocomplete#start_manual_complete() 
+  " inoremap <expr><c-p> pumvisible() ? "\<up>" : neocomplete#start_manual_complete() 
 endif " }}}
 
 if neobundle#is_installed('lightline.vim') " {{{
@@ -105,7 +104,7 @@ if neobundle#is_installed('previm')
   autocmd MiscConfig FileType mkd call s:register_previm_mapping()
 endif
 
-if neobundle#is_installed('unite.vim')
+if neobundle#is_installed('unite.vim') "{{{
   let g:unite_enable_start_insert = 1
 
   if executable('ag')
@@ -116,6 +115,24 @@ if neobundle#is_installed('unite.vim')
 
   nnoremap <silent> <Leader>g :<C-u>Unite grep:.<CR>
   nnoremap <silent> <Leader>b :<C-u>Unite buffer<CR>
+endif "}}}
+
+if neobundle#is_installed('vim-quickrun')
+  let g:quickrun_config = {}
+endif
+
+if neobundle#is_installed('vimshell.vim')
+  nnoremap <silent> <Leader>s :<C-u>VimShell<CR>
+endif
+
+if neobundle#is_installed('vimfiler.vim')
+  let g:vimfiler_as_default_explorer=1
+  nnoremap <silent> <Leader>f :<C-u>VimFilerCurrentDir -status -quit<CR>
+  function! s:register_vimfiler_mapping()
+    nmap <buffer><silent><nowait> q <Plug>(vimfiler_exit)
+    nmap <buffer><silent><nowait> Q <Plug>(vimfiler_hide)
+  endfunction
+  autocmd MiscConfig FileType vimfiler call s:register_vimfiler_mapping()
 endif
 
 " vim: foldmethod=marker
