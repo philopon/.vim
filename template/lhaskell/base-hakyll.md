@@ -1,1 +1,0 @@
-../markdown/base-hakyll.md

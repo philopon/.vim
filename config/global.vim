@@ -1,68 +1,35 @@
-set cindent
+function! s:create_directory_if_not_exist(dir)
+  let dir = expand(a:dir)
+  if !isdirectory(dir)
+    call mkdir(dir)
+  endif
+endfunction
 
-""" Sync clipboard
-set clipboard=unnamed,autoselect
+call s:create_directory_if_not_exist("~/.vim/backup")
+call s:create_directory_if_not_exist("~/.vim/undo")
 
-""" enable backspace key in insert mode?
-set backspace=2
-
-set showcmd
-
-set foldmethod=marker
-set viewoptions=cursor,folds
-
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
+set ambiwidth=double
 set autoindent
+set autoread
+set background=dark
+set backup backupcopy=yes backupdir=~/.vim/backup
+set clipboard+=unnamed
+set cmdheight=1
 set expandtab
-set hidden
+set hlsearch
+set incsearch
+set matchtime=0
+set numberwidth=1 relativenumber
+set smartcase
+set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+set undofile undodir=~/.vim/undo undolevels=10000
+set wildmode=list:longest,full
 
-set iminsert=0 
-set imsearch=0
-
-set wildmode=longest,list
-
-if !isdirectory($HOME."/.vim/backup")
-  call mkdir($HOME."/.vim/backup")
-endif
-set backupdir=$HOME/.vim/backup
-
-if !isdirectory($HOME."/.vim/undo")
-  call mkdir($HOME."/.vim/undo")
-endif
-set undodir=$HOME/.vim/undo
-set undofile
-set undolevels=2000
-
-""" Keymap
+nnoremap ; :
+nnoremap : ;
+nnoremap q; q:
 nnoremap x "_x
-noremap ; :
-noremap : ;
 nnoremap zf zMzv
 nnoremap zF zMzvzczO
-nnoremap [space] <Nop>
-nmap <Space>  [space]
-
-""" color scheme
-NeoBundle 'w0ng/vim-hybrid'
-if neobundle#is_installed('vim-hybrid')
-  let g:hybrid_use_Xresources = 1
-  colorscheme hybrid
-  autocmd GUIEnter * colorscheme hybrid
-endif
-
-
-""" File type
-augroup userFileType
-  autocmd BufNewFile,BufRead *.purs setlocal filetype=haskell
-augroup END
-
-set background=dark
-
-if has('gui_macvim')
-  set guifont=Ricty\ Discord\ Regular\ for\ Powerline:h13.5
-endif
-
-syntax enable
-filetype plugin indent on
+nnoremap <Space> <Nop>
+let mapleader = ' '

@@ -1,35 +1,23 @@
-augroup config_haskell
-  autocmd FileType Haskell setlocal softtabstop=4 shiftwidth=4 textwidth=0
+augroup HaskellConfig
+  autocmd!
 augroup END
 
-NeoBundleLazy 'dag/vim2hs', { 'autoload' : { 'filetypes': ['haskell'] } } "{{{
-if neobundle#tap('vim2hs')
-  function! neobundle#tapped.hooks.on_source(bundle)
-    let g:haskell_conceal = 0
-  endfunction
-  call neobundle#untap()
+if neobundle#is_installed('vim2hs')
+  let g:haskell_conceal = 0
 endif
-"}}}
 
-NeoBundleLazy 'eagletmt/ghcmod-vim', { 'autoload' : { 'filetypes': ['haskell'] }, 'depends': 'Shougo/vimproc' } "{{{
-if neobundle#tap('ghcmod-vim')
-  function! neobundle#tapped.hooks.on_source(bundle)
-    augroup config_haskell_ghcmod
-      autocmd!
-      autocmd FileType haskell noremap <buffer> <silent> [space]t :<C-u>GhcModType<CR>
-      autocmd BufWritePost,FileWritePost *.hs GhcModCheckAsync
-    augroup END
+if neobundle#is_installed('ghcmod-vim')
+  function! s:register_ghcmod()
+    autocmd HaskellConfig BufWritePost,FileWritePost <buffer> GhcModCheckAsync
+    nnoremap <buffer><silent> <Leader>t :<C-u>GhcModType<CR>
+    nnoremap <buffer><silent> <Leader>l :<C-u>GhcModLint<CR>
   endfunction
-  call neobundle#untap()
+
+  autocmd HaskellConfig FileType haskell,lhaskell,chaskell
+        \ call s:register_ghcmod()
 endif
-"}}}
 
-" NeoBundleLazy 'ujihisa/neco-ghc', { 'autoload' : { 'filetypes': ['haskell'] } }
-
-NeoBundleLazy 'git@github.com:philopon/haskell-indent.vim.git', { 'autoload' : { 'filetypes': ['haskell'] } }
-
-NeoBundle 'git@github.com:philopon/hassistant.vim.git', { 'build' : { 'mac' : 'sh build.sh', 'unix': 'sh build.sh'}, 'depends': 'Shougo/vimproc' }
-
-if exists('g:quickrun_config')
-  let g:quickrun_config.haskell = { 'command': 'runsandbox' }
+if neobundle#is_installed('neco-ghc')
+  autocmd HaskellConfig FileType haskell,lhaskell,chaskell
+    \ setlocal omnifunc=necoghc#omnifunc
 endif
