@@ -24,11 +24,15 @@ NeoBundle 'Shougo/vimproc.vim', {
       \    },
       \ }
 
-NeoBundle 'Shougo/vimshell.vim'
-NeoBundle 'Shougo/vimfiler.vim'
+if v:version > 702
+  NeoBundle 'Shougo/vimshell.vim'
+  NeoBundle 'Shougo/vimfiler.vim'
+  NeoBundle 'Shougo/unite.vim'
+endif
 
-NeoBundle 'Shougo/neocomplete.vim'
-NeoBundle 'Shougo/unite.vim'
+if has('lua')
+  NeoBundle 'Shougo/neocomplete.vim'
+endif
 
 NeoBundle 'Lokaltog/vim-easymotion'
 

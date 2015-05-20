@@ -19,10 +19,16 @@ set expandtab
 set hlsearch
 set incsearch
 set matchtime=0
-set numberwidth=1 relativenumber
+set numberwidth=1
+
+if v:version > 702
+  set relativenumber
+  set undofile undodir=~/.vim/undo 
+endif
+
 set smartcase
 set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
-set undofile undodir=~/.vim/undo undolevels=10000
+set undolevels=10000
 set wildmode=list:longest,full
 
 nnoremap x "_x
