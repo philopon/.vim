@@ -25,9 +25,6 @@ set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 set undofile undodir=~/.vim/undo undolevels=10000
 set wildmode=list:longest,full
 
-nnoremap ; :
-nnoremap : ;
-nnoremap q; q:
 nnoremap x "_x
 nnoremap zf zMzv
 nnoremap zF zMzvzczO
