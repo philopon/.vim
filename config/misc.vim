@@ -5,6 +5,8 @@ augroup END
 if neobundle#is_installed('neocomplete.vim') " {{{
   let g:neocomplete#enable_at_startup = 1
   let g:neocomplete#enable_smart_case = 1
+  let g:neocomplete#force_omni_input_patterns = {}
+  let g:neocomplete#sources#omni#input_patterns = {}
 
   inoremap <expr><C-g>     neocomplete#undo_completion()
   inoremap <expr><C-l>     neocomplete#complete_common_string()
