@@ -1,8 +1,0 @@
-.netrwhist
-backup
-bundle/*
-!bundle/neobundle.vim
-undo
-view
-*.swp
-bundle
