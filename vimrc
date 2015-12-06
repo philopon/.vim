@@ -31,11 +31,13 @@ if !isdirectory(backupdir)
 endif
 let &backupdir = backupdir
 
-let undodir = expand("~/.vim/undo")
-if !isdirectory(undodir)
-    call mkdir(undodir)
+if has('persistent_undo')
+    let undodir = expand("~/.vim/undo")
+    if !isdirectory(undodir)
+        call mkdir(undodir)
+    endif
+    let &undodir = undodir
 endif
-let &undodir = undodir
 "}}}
 
 let mapleader = "\<Space>"
