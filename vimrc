@@ -49,6 +49,8 @@ set clipboard=unnamed,unnamedplus
 
 set shellslash
 
+set textwidth=0
+
 set wildmode=list:longest history=10000
 
 " indent
@@ -133,6 +135,10 @@ if neobundle#tap('neocomplete.vim')
         "let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
         "let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 
+        if !exists('g:neocomplete#force_omni_input_patterns')
+            let g:neocomplete#force_omni_input_patterns = {}
+        endif
+
         " For perlomni.vim setting.
         " https://github.com/c9s/perlomni.vim
         let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
@@ -201,26 +207,47 @@ if neobundle#tap('neosnippet')
     call neobundle#untap()
 endif
 "}}}
+
+NeoBundle 'thinca/vim-quickrun'
+if neobundle#tap('vim-quickrun')
+    if !exists('g:quickrun_config')
+        let g:quickrun_config = {}
+    endif
+    call neobundle#untap()
+endif
+
+if exists('##QuitPre') " osyo-manga/vim-watchdogs "{{{
+NeoBundle 'osyo-manga/vim-watchdogs'
+endif
+if neobundle#tap('vim-watchdogs')
+    call neobundle#config(
+                \ { 'depends':
+                \   [ 'thinca/vim-quickrun',
+                \     'Shougo/vimproc.vim',
+                \     'osyo-manga/shabadou.vim',
+                \     'jceb/vim-hier',
+                \     'dannyob/quickfixstatus'
+                \   ]
+                \ })
+
+    let g:watchdogs_check_BufWritePost_enable = 1
+    let g:watchdogs_check_CursorHold_enable = 1
+
+    let g:quickrun_config['watchdogs_checker/_'] =
+                \ { 'runner/vimproc/updatetime': 50,
+                \   'hook/copen/enable_exist_data': 1,
+                \   'hook/back_window/enable_exit': 1,
+                \   'hook/back_window/priority_exit': 100
+                \ }
+    let g:quickrun_config["python/watchdogs_checker"] =
+                \ { "type": "watchdogs_checker/flake8" }
+    call neobundle#untap()
+endif "}}}
+
+
 "}}}
 
 " python {{{
-
-NeoBundle 'nvie/vim-flake8' "{{{
-if neobundle#tap('vim-flake8')
-    call neobundle#config(
-                \ { 'lazy': 1,
-                \   'autoload':
-                \   { 'filetypes': ['python'],
-                \     'commands': ['Flake8']
-                \   }
-                \ })
-    
-    augroup vimrc_vim_flake8
-        autocmd!
-        autocmd BufWritePost *.py call Flake8()
-    augroup END
-    call neobundle#untap()
-endif "}}}
 
 NeoBundle 'davidhalter/jedi-vim' "{{{
 if neobundle#tap('jedi-vim')
@@ -232,10 +259,21 @@ if neobundle#tap('jedi-vim')
                 \   }
                 \ })
     
-    augroup vimrc_jedi_vim
-        autocmd!
-        autocmd FileType python setlocal completeopt-=preview
-    augroup END
+    function! neobundle#tapped.hooks.on_source(bundle)
+        let g:jedi#completions_enabled = 0
+        let g:jedi#auto_vim_configuration = 0
+
+        if exists('g:neocomplete#force_omni_input_patterns')
+            let g:neocomplete#force_omni_input_patterns.python =
+                        \ '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
+        endif
+
+        augroup vimrc_jedi_vim
+            autocmd!
+            autocmd FileType python setlocal omnifunc=jedi#completions
+            autocmd FileType python setlocal completeopt-=preview
+        augroup END
+    endfunction
     call neobundle#untap()
 endif "}}}
 
@@ -251,6 +289,10 @@ if neobundle#tap('vim-python-pep8-indent')
     
     call neobundle#untap()
 endif "}}}
+
+" }}}
+
+" groovy {{{
 " }}}
 
 " latex {{{
@@ -284,7 +326,6 @@ if neobundle#tap('vimtex')
 endif
 "}}}
 
-
 "}}}
 
 " finalize NeoBundle {{{
@@ -295,4 +336,5 @@ colorscheme molokai
 filetype plugin indent on
 NeoBundleCheck
 "}}}
+
 " vim:set foldmethod=marker:
