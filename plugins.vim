@@ -14,5 +14,6 @@ Plug 'osyo-manga/vim-watchdogs',
             \ { 'on': ['WatchdogsRun', 'WatchdogsRunSilent', 'WatchdogsRunSweep'],
             \   'depends': ['shabadou.vim', 'vim-quickrun', 'vimproc.vim'] }
 
-Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+Plug '~/.vim/local/jedi-wrapper', { 'for': 'python' }
+Plug 'davidhalter/jedi-vim', { 'on': [] }
 Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
