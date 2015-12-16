@@ -1,90 +1,99 @@
-" neobundle prelude {{{
-if !1 | finish | endif
+let vimbase = expand('~/.vim')
 
-if has('vim_starting')
-  set runtimepath+=~/.vim/bundle/neobundle.vim/
+if exists('&pythondll')
+    let &pythondll = glob(systemlist('python2-config --prefix')[0].'/lib/libpython*')
 endif
 
-call neobundle#begin(expand('~/.vim/bundle/'))
-NeoBundleFetch 'Shougo/neobundle.vim'
-" }}}
+" vim-plug {{{
+if empty(glob(vimbase.'/.plugged/vim-plug/plug.vim'))
+    exec "silent !git clone --depth 1 https://github.com/junegunn/vim-plug.git ".vimbase."/.plugged/vim-plug"
+endif
+call plug#begin(vimbase.'/.plugged')
 
-" packages {{{
+exec "source ".vimbase."/plugins.vim"
 
-"" misc {{{
-NeoBundle 'w0ng/vim-hybrid'
+call plug#end()
+delcommand PlugUpgrade
 
-NeoBundle 'Shougo/vimproc.vim', {
-      \ 'build' : {
-      \     'windows' : 'tools\\update-dll-mingw',
-      \     'cygwin' : 'make -f make_cygwin.mak',
-      \     'mac' : 'make -f make_mac.mak',
-      \     'linux' : 'make',
-      \     'unix' : 'gmake',
-      \    },
-      \ }
+let g:plug_window='new'
 
-if v:version > 702
-  NeoBundle 'Shougo/vimshell.vim'
-  NeoBundle 'Shougo/vimfiler.vim'
-  NeoBundle 'Shougo/unite.vim'
+" https://github.com/junegunn/vim-plug/issues/212
+function! s:install_plugins(names)
+    if confirm('install?: '.string(a:names), "&Yes\n&No", 0) == 1
+        PlugInstall
+    endif
+endfunction
+
+let s:to_install = filter(copy(g:plugs), '!isdirectory(v:val.dir)')
+if !empty(s:to_install)
+    augroup install_plugins
+        autocmd!
+        autocmd VimEnter * call s:install_plugins(keys(s:to_install))
+                    \ | source $MYVIMRC | autocmd! install_plugins
+    augroup END
 endif
 
-NeoBundle 'vim-jp/vital.vim'
+" https://github.com/junegunn/vim-plug/issues/146
+function! IsInstalled(name)
+    let pkg = get(g:plugs, a:name, {})
+    if has_key(pkg, 'dir')
+        return isdirectory(pkg.dir)
+    endif
+    echomsg 'IsInstalled: unknown package: '.a:name
+endfunction
 
-if has('lua')
-  NeoBundle 'Shougo/neocomplete.vim'
-endif
-
-NeoBundle 'Lokaltog/vim-easymotion'
-
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'airblade/vim-gitgutter'
-
-NeoBundle 'itchyny/lightline.vim'
-NeoBundle 'cocopon/lightline-hybrid.vim'
-
-NeoBundle 'tyru/open-browser.vim'
-
-NeoBundle 'thinca/vim-quickrun'
-"" }}}
-
-"" Haskell {{{
-let s:autoload_haskell = "{'autoload': {'filetypes': ['haskell', 'lhaskell', 'chaskell']}}"
-execute "NeoBundleLazy 'dag/vim2hs'," . s:autoload_haskell
-execute "NeoBundleLazy 'eagletmt/ghcmod-vim'," . s:autoload_haskell
-execute "NeoBundleLazy 'eagletmt/neco-ghc'," . s:autoload_haskell
-execute "NeoBundleLazy 'git@github.com:philopon/haskell-indent.vim.git'," . s:autoload_haskell
-"" }}}
-
-NeoBundle 'tpope/vim-fireplace'
-
-NeoBundleLazy 'plasticboy/vim-markdown', {'autoload': {'filetypes': ['mkd']}}
-NeoBundleLazy 'kannokanno/previm', {'autoload': {'filetypes': ['mkd']}}
-
-NeoBundleLazy 'lambdatoast/elm.vim', {'autoload': {'filetypes': ['elm']}}
-
-NeoBundleLazy 'raichoo/purescript-vim', {'autoload': {'filetypes': ['purescript']}}
-NeoBundle 'kchmck/vim-coffee-script'
-
-NeoBundle 'leafgarland/typescript-vim'
-NeoBundle 'jason0x43/vim-js-indent'
-NeoBundle 'Quramy/tsuquyomi'
+function! IsLoaded(name)
+    let pkg = get(g:plugs, a:name, {})
+    if has_key(pkg, 'dir')
+        return isdirectory(pkg.dir) && stridx(&rtp, pkg.dir) >= 0
+    endif
+    echomsg 'IsLoaded: unknown package: '.a:name
+endfunction
 " }}}
 
-source ~/.vim/config/global.vim
-source ~/.vim/config/misc.vim
-source ~/.vim/config/haskell.vim
-source ~/.vim/config/elm.vim
-source ~/.vim/config/purescript.vim
-source ~/.vim/config/typescript.vim
+" {{{ autoload
+for [name, pkg] in items(g:plugs)
+    if !IsInstalled(name)
+        continue
+    endif
 
-" neobundle postlude {{{
-call neobundle#end()
-filetype plugin indent on
-NeoBundleCheck
+    let base = vimbase.'/rc/'
+
+    let conf_name = substitute(name, '[.\-_]n\?vim', '', '')
+    let rc = base.conf_name.'.vim'
+    let lazy = base.conf_name.'.lazy.vim'
+
+    if filereadable(rc)
+        exec "source ".rc
+    endif
+
+    " dependency loader
+    if has_key(pkg, 'depends')
+        if !IsLoaded(name)
+            execute 'autocmd! User '.name.
+                        \ ' call call("plug#load",'.string(pkg.depends).')'
+        else
+            call call('plug#load', pkg.depends)
+        endif
+    endif
+
+    if filereadable(lazy)
+        " lazy load
+        if has_key(pkg, 'for') || (has_key(pkg, 'on') && !empty(pkg.on))
+            exec "autocmd! User ".name." source ".lazy
+        " lazy insert load
+        elseif get(pkg, 'insert', 0)
+            execute 'augroup load_'.conf_name
+                autocmd!
+                execute 'autocmd InsertEnter * call plug#load('''.name.''') '
+                            \ .'| source '.lazy.' | autocmd! load_'.conf_name
+            execute 'augroup END'
+        endif
+    endif
+endfor
 " }}}
 
-source ~/.vim/config/colorscheme.vim
+exec "source ".vimbase."/config.vim"
+exec "source ".vimbase."/keymap.vim"
 
-" vim: filetype=vim foldmethod=marker
+" vim:set foldmethod=marker:
