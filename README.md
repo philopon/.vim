@@ -1,7 +1,11 @@
-```.sh
+#!/usr/bin/bash
+
+# $ curl -L curl -L https://raw.githubusercontent.com/philopon/.vim/master/README.md | bash
+
+cd ~
 git clone git@github.com:philopon/.vim.git
-cd $HOME
-ln -s .vim/vimrc .vimrc
-ln -s .vim/gvimrc .gvimrc
-curl https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh | sh
-```
+ln -sf .vim/vimrc .vimrc
+ln -sf .vim/gvimrc .gvimrc
+mkdir .config
+cd .config
+ln -sf ../.vim nvim
