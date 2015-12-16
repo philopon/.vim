@@ -5,10 +5,10 @@ if exists('&pythondll')
 endif
 
 " vim-plug {{{
-if empty(glob(vimbase.'/plugged/vim-plug/plug.vim'))
-    exec "silent !git clone --depth 1 https://github.com/junegunn/vim-plug.git ".vimbase."/plugged/vim-plug"
+if empty(glob(vimbase.'/.plugged/vim-plug/plug.vim'))
+    exec "silent !git clone --depth 1 https://github.com/junegunn/vim-plug.git ".vimbase."/.plugged/vim-plug"
 endif
-call plug#begin(vimbase.'/plugged')
+call plug#begin(vimbase.'/.plugged')
 
 exec "source ".vimbase."/plugins.vim"
 
@@ -53,6 +53,10 @@ endfunction
 
 " {{{ autoload
 for [name, pkg] in items(g:plugs)
+    if !IsInstalled(name)
+        continue
+    endif
+
     let base = vimbase.'/rc/'
 
     let conf_name = substitute(name, '[.\-_]n\?vim', '', '')
@@ -63,9 +67,14 @@ for [name, pkg] in items(g:plugs)
         exec "source ".rc
     endif
 
+    " dependency loader
     if has_key(pkg, 'depends')
-        execute 'autocmd! User '.name.
-                    \ ' call plug#load('.join(map(copy(pkg.depends), 'string(v:val)'), ',').')'
+        if !IsLoaded(name)
+            execute 'autocmd! User '.name.
+                        \ ' call call("plug#load",'.string(pkg.depends).')'
+        else
+            call call('plug#load', pkg.depends)
+        endif
     endif
 
     if filereadable(lazy)

@@ -1,13 +1,13 @@
 set directory=/tmp
 
-let backupdir = vimbase.'/backup'
+let backupdir = vimbase.'/.backup'
 if !isdirectory(backupdir)
     call mkdir(backupdir)
 endif
 let &backupdir = backupdir
 
 if has('persistent_undo')
-    let undodir = vimbase.'/undo'
+    let undodir = vimbase.'/.undo'
     if !isdirectory(undodir)
         call mkdir(undodir)
     endif
