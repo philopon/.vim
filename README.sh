@@ -11,4 +11,3 @@ ln -sf .vim/gvimrc .gvimrc
 [ ! -d .config ] && mkdir .config
 cd $HOME/.config
 [ ! -d nvim ] && ln -sf ../.vim nvim
-vim
