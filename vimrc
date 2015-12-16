@@ -78,16 +78,16 @@ for [name, pkg] in items(g:plugs)
     endif
 
     if filereadable(lazy)
-        " lazy load
-        if has_key(pkg, 'for') || (has_key(pkg, 'on') && !empty(pkg.on))
-            exec "autocmd! User ".name." source ".lazy
         " lazy insert load
-        elseif get(pkg, 'insert', 0)
+        if get(pkg, 'insert', 0)
             execute 'augroup load_'.conf_name
                 autocmd!
                 execute 'autocmd InsertEnter * call plug#load('''.name.''') '
                             \ .'| source '.lazy.' | autocmd! load_'.conf_name
             execute 'augroup END'
+        " lazy load
+        elseif has_key(pkg, 'for') || has_key(pkg, 'on')
+            exec "autocmd! User ".name." source ".lazy
         endif
     endif
 endfor
