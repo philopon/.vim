@@ -1,0 +1,39 @@
+[[plugins]]
+repository = 'Shougo/neocomplete.vim'
+on_i = 1
+disabled = 'has("nvim")'
+
+[[plugins]]
+repository = 'ntpeters/vim-better-whitespace'
+on_i = 1
+
+[[plugins]]
+repository = 'ctrlpvim/ctrlp.vim'
+on_cmd = 'CtrlP'
+on_map = '<c-p>'
+
+[[plugins]]
+repository = 'Shougo/vimproc.vim'
+build = 'make'
+
+[[plugins]]
+repository = 'thinca/vim-quickrun'
+on_cmd = 'QuickRun'
+depends = 'Shougo/vimproc.vim'
+
+[[plugins]]
+repository = 'osyo-manga/shabadou.vim'
+depends = 'thinca/vim-quickrun'
+
+[[plugins]]
+repository = 'osyo-manga/vim-watchdogs'
+on_cmd = ['WatchdogsRun', 'WatchdogsRunSilent', 'WatchdogsRunSweep']
+depends = 'osyo-manga/shabadou.vim'
+
+[[plugins]]
+repository = 'davidhalter/jedi-vim'
+on_ft = 'python'
+
+[[plugins]]
+repository = 'hynek/vim-python-pep8-indent'
+on_ft = 'python'

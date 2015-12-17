@@ -4,97 +4,44 @@ if exists('&pythondll')
     let &pythondll = glob(systemlist('python2-config --prefix')[0].'/lib/libpython*')
 endif
 
-" vim-plug {{{
-if empty(glob(vimbase.'/.plugged/vim-plug/plug.vim'))
-    exec "silent !git clone --depth 1 https://github.com/junegunn/vim-plug.git ".vimbase."/.plugged/vim-plug"
-endif
-call plug#begin(vimbase.'/.plugged')
-
-exec "source ".vimbase."/plugins.vim"
-
-call plug#end()
-delcommand PlugUpgrade
-
-let g:plug_window='new'
-
-" https://github.com/junegunn/vim-plug/issues/212
-function! s:install_plugins(names)
-    if confirm('install?: '.string(a:names), "&Yes\n&No", 0) == 1
-        PlugInstall
-    endif
-endfunction
-
-let s:to_install = filter(copy(g:plugs), '!isdirectory(v:val.dir)')
-if !empty(s:to_install)
-    augroup install_plugins
-        autocmd!
-        autocmd VimEnter * call s:install_plugins(keys(s:to_install))
-                    \ | source $MYVIMRC
-                    \ | autocmd! install_plugins
-    augroup END
+" neobundle {{{
+if empty(glob(vimbase.'/.bundle/neobundle.vim'))
+    exec "silent !git clone --depth 1 https://github.com/Shougo/neobundle.vim ".vimbase."/.bundle/neobundle.vim"
 endif
 
-" https://github.com/junegunn/vim-plug/issues/146
-function! IsInstalled(name)
-    let pkg = get(g:plugs, a:name, {})
-    if has_key(pkg, 'dir')
-        return isdirectory(pkg.dir)
-    endif
-    echomsg 'IsInstalled: unknown package: '.a:name
-endfunction
+if 0 | endif
 
-function! IsLoaded(name)
-    let pkg = get(g:plugs, a:name, {})
-    if has_key(pkg, 'dir')
-        return isdirectory(pkg.dir) && stridx(&rtp, pkg.dir) >= 0
-    endif
-    echomsg 'IsLoaded: unknown package: '.a:name
-endfunction
-" }}}
-
-" {{{ autoload
-for [name, pkg] in items(g:plugs)
-    if !IsInstalled(name)
-        continue
+if has('vim_starting')
+    if &compatible
+        set compatible
     endif
 
-    let base = vimbase.'/rc/'
+    exec 'set runtimepath+='.vimbase.'/.bundle/neobundle.vim'
+endif
 
-    let conf_name = substitute(name, '[.\-_]n\?vim', '', '')
-    let rc = base.conf_name.'.vim'
-    let lazy = base.conf_name.'.lazy.vim'
+call neobundle#begin(vimbase.'/.bundle/')
 
-    if filereadable(rc)
-        exec "source ".rc
-    endif
+NeoBundle 'tomasr/molokai'
 
-    " dependency loader
-    if has_key(pkg, 'depends')
-        if !IsLoaded(name)
-            execute 'autocmd! User '.name.
-                        \ ' call call("plug#load",'.string(pkg.depends).')'
-        else
-            call call('plug#load', pkg.depends)
-        endif
-    endif
+if neobundle#load_cache()
+    NeoBundleFetch 'Shougo/neobundle.vim'
 
-    if filereadable(lazy)
-        " lazy insert load
-        if get(pkg, 'insert', 0)
-            execute 'augroup load_'.conf_name
-                autocmd!
-                execute 'autocmd InsertEnter * call plug#load('''.name.''') '
-                            \ .'| source '.lazy.' | autocmd! load_'.conf_name
-            execute 'augroup END'
-        " lazy load
-        elseif has_key(pkg, 'for') || has_key(pkg, 'on')
-            exec "autocmd! User ".name." source ".lazy
-        endif
-    endif
-endfor
+    call neobundle#load_toml(vimbase.'/plugins.toml', {'lazy': 1})
+
+    NeoBundleSaveCache
+endif
+
+
+call neobundle#end()
+filetype plugin indent on
+NeoBundleCheck
 " }}}
 
 exec "source ".vimbase."/config.vim"
 exec "source ".vimbase."/keymap.vim"
+
+for rc in split(globpath(vimbase.'/rc', '**'))
+    exec "source ".rc
+endfor
 
 " vim:set foldmethod=marker:

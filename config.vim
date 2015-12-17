@@ -32,6 +32,6 @@ set wildmode=list:longest history=10000
 
 set autoindent smartindent shiftwidth=4 tabstop=4 softtabstop=4 expandtab
 
-if IsLoaded('molokai')
+if neobundle#is_sourced('molokai')
     colorscheme molokai
 endif
