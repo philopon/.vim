@@ -5,7 +5,10 @@ if !has('nvim')
     Plug 'Shougo/neocomplete.vim', { 'on': [], 'insert': 1 }
 endif
 
-Plug 'Shougo/unite.vim', { 'on': 'Unite' }
+Plug 'ntpeters/vim-better-whitespace'
+
+Plug 'ctrlpvim/ctrlp.vim', { 'on': 'CtrlP' }
+nnoremap <C-p> :<C-u>CtrlP<CR>
 
 Plug 'Shougo/vimproc.vim', { 'do': 'make', 'on': [] }
 Plug 'thinca/vim-quickrun', { 'on': 'QuickRun', 'depends': ['vimproc.vim'] }

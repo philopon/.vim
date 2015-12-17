@@ -29,7 +29,8 @@ if !empty(s:to_install)
     augroup install_plugins
         autocmd!
         autocmd VimEnter * call s:install_plugins(keys(s:to_install))
-                    \ | source $MYVIMRC | autocmd! install_plugins
+                    \ | source $MYVIMRC
+                    \ | autocmd! install_plugins
     augroup END
 endif
 

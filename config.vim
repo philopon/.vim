@@ -22,6 +22,8 @@ set list listchars=tab:▸\ ,eol:↲,extends:»
 
 set clipboard=unnamed,unnamedplus
 
+set hidden
+
 set shellslash
 
 set textwidth=0
