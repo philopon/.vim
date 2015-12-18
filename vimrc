@@ -6,7 +6,8 @@ endif
 
 " neobundle {{{
 if empty(glob(vimbase.'/.bundle/neobundle.vim'))
-    exec "silent !git clone --depth 1 https://github.com/Shougo/neobundle.vim ".vimbase."/.bundle/neobundle.vim"
+    exec "silent !git clone --depth 1 https://github.com/Shougo/neobundle.vim ".
+                \ vimbase."/.bundle/neobundle.vim"
 endif
 
 let g:neobundle#enable_name_conversion = 1
@@ -25,11 +26,17 @@ call neobundle#begin(vimbase.'/.bundle/')
 
 if neobundle#load_cache()
     call neobundle#load_toml(vimbase.'/plugins.toml')
-
     NeoBundleSaveCache
 endif
 
-autocmd BufWritePost plugins.toml NeoBundleClearCache
+augroup clear_cache_on_save
+    autocmd!
+    autocmd BufWritePost plugins.toml NeoBundleClearCache
+augroup END
+
+for rc in split(globpath(vimbase.'/config', '**.vim'))
+    exec 'source '.rc
+endfor
 
 for rc in split(globpath(vimbase.'/rc', '**.vim'))
     let name = fnamemodify(rc, ':t:r')
@@ -37,10 +44,6 @@ for rc in split(globpath(vimbase.'/rc', '**.vim'))
         exec 'source '.rc
         call neobundle#untap()
     endif
-endfor
-
-for rc in split(globpath(vimbase.'/config', '**.vim'))
-    exec 'source '.rc
 endfor
 
 call neobundle#end()
