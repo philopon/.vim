@@ -1,4 +1,4 @@
-if neobundle#tap('vim-watchdogs')
+if neobundle#tap('watchdogs')
     function! neobundle#hooks.on_source(bundle)
         if !exists('g:quickrun_config')
             let g:quickrun_config = {}
@@ -17,10 +17,10 @@ if neobundle#tap('vim-watchdogs')
         let g:watchdogs_check_BufWritePost_enable = 1
         let g:watchdogs_check_CursorHold_enable = 1
     endfunction
-    call neobundle#untap()
 
     augroup load_vim_watchdogs
         autocmd!
         autocmd BufWritePre * call neobundle#source('vim-watchdogs') | autocmd! load_vim_watchdogs
     augroup END
+    call neobundle#untap()
 endif

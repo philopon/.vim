@@ -21,27 +21,22 @@ endif
 
 call neobundle#begin(vimbase.'/.bundle/')
 
-NeoBundle 'tomasr/molokai'
-
 if neobundle#load_cache()
-    NeoBundleFetch 'Shougo/neobundle.vim'
-
-    call neobundle#load_toml(vimbase.'/plugins.toml', {'lazy': 1})
+    call neobundle#load_toml(vimbase.'/plugins.toml')
 
     NeoBundleSaveCache
 endif
 
+autocmd BufWritePost plugins.toml NeoBundleClearCache
+
+for rc in split(globpath(vimbase.'/rc', '**.vim'))
+    exec "source ".rc
+endfor
 
 call neobundle#end()
+syntax on
 filetype plugin indent on
 NeoBundleCheck
 " }}}
-
-exec "source ".vimbase."/config.vim"
-exec "source ".vimbase."/keymap.vim"
-
-for rc in split(globpath(vimbase.'/rc', '**'))
-    exec "source ".rc
-endfor
 
 " vim:set foldmethod=marker:

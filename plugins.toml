@@ -1,39 +1,99 @@
 [[plugins]]
-repository = 'Shougo/neocomplete.vim'
-on_i = 1
-disabled = 'has("nvim")'
-
-[[plugins]]
-repository = 'ntpeters/vim-better-whitespace'
-on_i = 1
+repository = 'Shougo/neobundle.vim'
+fetch = 1
 
 [[plugins]]
 repository = 'ctrlpvim/ctrlp.vim'
+lazy = 1
 on_cmd = 'CtrlP'
 on_map = '<c-p>'
 
 [[plugins]]
+repository = 'tomasr/molokai'
+
+[[plugins]]
+repository = 'ntpeters/vim-better-whitespace'
+lazy = 1
+on_i = 1
+
+[[plugins]]
+repository = 'haya14busa/incsearch.vim'
+lazy = 1
+on_map = '<Plug>(incsearch-'
+
+[[plugins]]
+repository = 'haya14busa/vim-asterisk'
+lazy = 1
+on_map = '<Plug>(asterisk-'
+
+[[plugins]]
+repository = 'nathanaelkane/vim-indent-guides'
+
+[[plugins]]
+repository = 'jiangmiao/auto-pairs'
+lazy = 1
+insert = 1
+
+# {{{ auto-complete
+[[plugins]]
+repository = 'Shougo/neocomplete.vim'
+lazy = 1
+on_i = 1
+disabled = 'has("nvim")'
+
+[[plugins]]
+repository = 'Shougo/deoplete.nvim'
+lazy = 1
+on_i = 1
+disabled = '!has("nvim")'
+# }}}
+
+# {{{ execute
+[[plugins]]
 repository = 'Shougo/vimproc.vim'
-build = 'make'
+lazy = 1
+
+    [plugins.build]
+    windows = 'tools\\update-dll-mingw'
+    cygwin = 'make -f make_cygwin.mak'
+    mac = 'make -f make_mac.mak'
+    unix = 'make -f make_unix.mak'
 
 [[plugins]]
 repository = 'thinca/vim-quickrun'
+lazy = 1
 on_cmd = 'QuickRun'
 depends = 'Shougo/vimproc.vim'
 
 [[plugins]]
 repository = 'osyo-manga/shabadou.vim'
+lazy = 1
 depends = 'thinca/vim-quickrun'
 
 [[plugins]]
 repository = 'osyo-manga/vim-watchdogs'
+lazy = 1
 on_cmd = ['WatchdogsRun', 'WatchdogsRunSilent', 'WatchdogsRunSweep']
 depends = 'osyo-manga/shabadou.vim'
+# }}}
 
+# {{{ python
 [[plugins]]
 repository = 'davidhalter/jedi-vim'
+lazy = 1
 on_ft = 'python'
 
 [[plugins]]
 repository = 'hynek/vim-python-pep8-indent'
+lazy = 1
 on_ft = 'python'
+# }}}
+
+# {{{ toml
+[[plugins]]
+repository = 'cespare/vim-toml'
+lazy = 1
+on_ft = 'toml'
+# }}}
+
+# vim:foldmethod=marker

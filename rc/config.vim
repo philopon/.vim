@@ -14,6 +14,8 @@ if has('persistent_undo')
     let &undodir = undodir
 endif
 
+set spell spelllang=en,cjk
+
 set undofile
 
 set number cmdheight=1 visualbell noerrorbells background=dark
@@ -31,7 +33,3 @@ set textwidth=0
 set wildmode=list:longest history=10000
 
 set autoindent smartindent shiftwidth=4 tabstop=4 softtabstop=4 expandtab
-
-if neobundle#is_sourced('molokai')
-    colorscheme molokai
-endif
