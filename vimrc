@@ -9,6 +9,8 @@ if empty(glob(vimbase.'/.bundle/neobundle.vim'))
     exec "silent !git clone --depth 1 https://github.com/Shougo/neobundle.vim ".vimbase."/.bundle/neobundle.vim"
 endif
 
+let g:neobundle#enable_name_conversion = 1
+
 if 0 | endif
 
 if has('vim_starting')
@@ -30,7 +32,15 @@ endif
 autocmd BufWritePost plugins.toml NeoBundleClearCache
 
 for rc in split(globpath(vimbase.'/rc', '**.vim'))
-    exec "source ".rc
+    let name = fnamemodify(rc, ':t:r')
+    if neobundle#tap(name)
+        exec 'source '.rc
+        call neobundle#untap()
+    endif
+endfor
+
+for rc in split(globpath(vimbase.'/config', '**.vim'))
+    exec 'source '.rc
 endfor
 
 call neobundle#end()
