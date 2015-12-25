@@ -14,7 +14,7 @@ if has('persistent_undo')
     let &undodir = undodir
 endif
 
-set spell spelllang=en,cjk
+set spelllang=en,cjk
 
 set undofile
 

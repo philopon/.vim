@@ -29,11 +29,6 @@ on_map = '<Plug>(asterisk-'
 [[plugins]]
 repository = 'nathanaelkane/vim-indent-guides'
 
-[[plugins]]
-repository = 'jiangmiao/auto-pairs'
-lazy = 1
-insert = 1
-
 # {{{ auto-complete
 [[plugins]]
 repository = 'Shougo/neocomplete.vim'
@@ -75,6 +70,18 @@ repository = 'osyo-manga/vim-watchdogs'
 lazy = 1
 on_cmd = ['WatchdogsRun', 'WatchdogsRunSilent', 'WatchdogsRunSweep']
 depends = 'osyo-manga/shabadou.vim'
+# }}}
+
+# {{{ haskell
+[[plugins]]
+repository = 'eagletmt/ghcmod-vim'
+lazy = 1
+on_ft = 'haskell'
+
+[[plugins]]
+repository = 'eagletmt/neco-ghc'
+lazy = 1
+on_ft = 'haskell'
 # }}}
 
 # {{{ python
