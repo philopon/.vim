@@ -47,9 +47,32 @@ for rc in split(globpath(vimbase.'/rc', '**.vim'))
 endfor
 
 call neobundle#end()
-syntax on
 filetype plugin indent on
 NeoBundleCheck
 " }}}
+
+"{{{ check updates
+let s:upd_name = vimbase.'/.last_updated'
+
+if !filereadable(s:upd_name)
+    call writefile([0], s:upd_name)
+endif
+
+let s:last = str2nr(readfile(s:upd_name)[0])
+let s:current = str2nr(strftime('%s'))
+
+if s:current > s:last + 24 * 3600
+    function! s:check_updates()
+        NeoBundleCheckUpdate
+        call writefile([s:current], s:upd_name)
+        autocmd! auto_check_updates
+    endfunction
+
+    augroup auto_check_updates
+        autocmd!
+        autocmd VimEnter * call s:check_updates()
+    augroup END
+endif
+"}}}
 
 " vim:set foldmethod=marker:
