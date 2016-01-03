@@ -3,13 +3,6 @@ function! neobundle#hooks.on_source(bundle)
         let g:quickrun_config = {}
     endif
 
-    let g:quickrun_config['watchdogs_checker/_'] =
-                \ { 'runner/vimproc/updatetime': 50,
-                \   'hook/copen/enable_exist_data' : 1,
-                \   'hook/back_window/enable_exit': 1,
-                \   'hook/back_window/priority_exit': 1
-                \ }
-
     let g:quickrun_config['python/watchdogs_checker'] =
                 \ { 'type': 'watchdogs_checker/flake8' }
 
