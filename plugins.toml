@@ -12,9 +12,12 @@ on_map = '<c-p>'
 repository = 'tomasr/molokai'
 
 [[plugins]]
-repository = 'ntpeters/vim-better-whitespace'
+repository = 'tpope/vim-fugitive'
+augroup = 'fugitive'
 lazy = 1
-on_i = 1
+on_cmd = ['Gblame', 'Gbrowse', 'Gcd', 'Gcommit', 'Gdiff', 'Ge', 'Gedit',
+          'Gfetch', 'Ggrep', 'Git', 'Glog', 'Gmerge', 'Gmove', 'Gpull',
+          'Gpush', 'Gread', 'Gremove', 'Gstatus', 'Gw', 'Gwq', 'Gwrite']
 
 [[plugins]]
 repository = 'haya14busa/incsearch.vim'
@@ -29,12 +32,22 @@ on_map = '<Plug>(asterisk-'
 [[plugins]]
 repository = 'nathanaelkane/vim-indent-guides'
 
+[[plugins]]
+repository = 'tyru/open-browser.vim'
+lazy = 1
+
+[[plugins]]
+repository = 'kannokanno/previm'
+depends = 'tyru/open-browser.vim'
+lazy = 1
+on_ft = ['markdown']
+
 # {{{ auto-complete
 [[plugins]]
 repository = 'Shougo/neocomplete.vim'
 lazy = 1
 on_i = 1
-disabled = 'has("nvim")'
+disabled = 'has("nvim") || !has("lua")'
 
 [[plugins]]
 repository = 'Shougo/deoplete.nvim'
