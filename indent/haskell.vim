@@ -6,7 +6,7 @@ endif
 setlocal autoindent
 setlocal indentexpr=GetHaskellIndent()
 
-setlocal indentkeys=!^F,o,O,0=where
+setlocal indentkeys=!^F,o,O,0=where,0=\|
 setlocal expandtab
 
 let b:undo_indent = 'setlocal '.join([
@@ -45,6 +45,8 @@ function! GetHaskellIndent()
 
     if current_line =~# '^\s*where\>'
         return s:get_where_level(v:lnum - 1) + &l:shiftwidth / 2
+    elseif current_line =~# '^\s*|'
+        return match(getline(v:lnum - 1), '|')
     endif
 
     let before_line = getline(v:lnum - 1)
