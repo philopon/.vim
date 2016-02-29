@@ -1,4 +1,4 @@
-function! neobundle#hooks.on_source(bundle)
+function! s:on_source()
     let g:neocomplete#enable_at_startup = 1
     let g:neocomplete#enable_smart_case = 1
     let g:neocomplete#sources#syntax#min_keyword_length = 2
@@ -16,3 +16,5 @@ function! neobundle#hooks.on_source(bundle)
     inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
     inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 endfunction
+
+execute 'autocmd DeinHooks User dein#source#'.g:dein#name.' call s:on_source()'

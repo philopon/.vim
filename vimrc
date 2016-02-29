@@ -1,37 +1,33 @@
 let vimbase = expand('~/.vim')
 
-if exists('&pythondll')
-    let &pythondll = glob(systemlist('python2-config --prefix')[0].'/lib/libpython*')
+" {{{ dein
+let s:dein_dir = vimbase.'/.dein'
+let s:dein_repo_dir = s:dein_dir.'/repos/github.com/Shougo/dein.vim'
+let s:dein_toml_path = vimbase.'/plugins.toml'
+
+let g:dein#enable_name_conversion = 1
+
+if &compatible
+    set nocompatible
 endif
 
-" neobundle {{{
-if empty(glob(vimbase.'/.bundle/neobundle.vim'))
-    exec "silent !git clone --depth 1 https://github.com/Shougo/neobundle.vim ".
-                \ vimbase."/.bundle/neobundle.vim"
-endif
-
-let g:neobundle#enable_name_conversion = 1
-
-if 0 | endif
-
-if has('vim_starting')
-    if &compatible
-        set compatible
+if &runtimepath !~ '/dein.vim'
+    if !isdirectory(s:dein_repo_dir)
+        execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
     endif
 
-    exec 'set runtimepath+='.vimbase.'/.bundle/neobundle.vim'
+    execute 'set runtimepath^='.fnamemodify(s:dein_repo_dir, ':p')
 endif
 
-call neobundle#begin(vimbase.'/.bundle/')
+call dein#begin(s:dein_dir)
 
-if neobundle#load_cache()
-    call neobundle#load_toml(vimbase.'/plugins.toml')
-    NeoBundleSaveCache
+if dein#load_cache([expand('<sfile>'), s:dein_toml_path])
+    call dein#load_toml(s:dein_toml_path)
+    call dein#save_cache()
 endif
 
-augroup clear_cache_on_save
+augroup DeinHooks
     autocmd!
-    autocmd BufWritePost plugins.toml NeoBundleClearCache
 augroup END
 
 for rc in split(globpath(vimbase.'/config', '**.vim'))
@@ -40,15 +36,19 @@ endfor
 
 for rc in split(globpath(vimbase.'/rc', '**.vim'))
     let name = fnamemodify(rc, ':t:r')
-    if neobundle#tap(name)
-        exec 'source '.rc
-        call neobundle#untap()
+    if dein#tap(name)
+        execute 'source '.rc
     endif
 endfor
 
-call neobundle#end()
+call dein#end()
+
+if dein#check_install()
+    call dein#install()
+endif
+
 filetype plugin indent on
-NeoBundleCheck
+
 " }}}
 
 "{{{ check updates
@@ -63,7 +63,7 @@ let s:current = str2nr(strftime('%s'))
 
 if s:current > s:last + 24 * 3600
     function! s:check_updates()
-        NeoBundleCheckUpdate
+        call dein#update()
         call writefile([s:current], s:upd_name)
         autocmd! auto_check_updates
     endfunction

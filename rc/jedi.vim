@@ -1,4 +1,4 @@
-function! neobundle#hooks.on_source(bundle)
+function! s:on_source()
     let libpython = system('python -c ''import sysconfig, glob, os;'.
                 \ 'libdir = sysconfig.get_config_var("LIBDIR");'.
                 \ 'print(glob.glob(os.path.join(libdir, "libpython?.?.*"))[0])''')
@@ -21,13 +21,13 @@ function! neobundle#hooks.on_source(bundle)
         endif
     endif
 
-    if neobundle#is_installed('neocomplete') || neobundle#is_installed('deoplete')
+    if dein#tap('neocomplete') || dein#tap('deoplete')
         let g:jedi#show_call_signatures = 0
         let g:jedi#auto_vim_configuration = 0
         let g:jedi#completions_enabled = 0
         let g:jedi#popup_on_dot = 0
 
-        if neobundle#is_installed('neocomplete')
+        if dein#tap('neocomplete')
             if !exists('g:neocomplete#sources#omni#input_patterns')
                 let g:neocomplete#sources#omni#input_patterns = {}
             endif
@@ -41,3 +41,5 @@ function! neobundle#hooks.on_source(bundle)
         augroup END
     endif
 endfunction
+
+execute 'autocmd DeinHooks User dein#source#'.g:dein#name.' call s:on_source()'

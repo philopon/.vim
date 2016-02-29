@@ -1,4 +1,4 @@
-function! neobundle#hooks.on_source(bundle)
+function! s:on_source()
     if !exists('g:quickrun_config')
         let g:quickrun_config = {}
     endif
@@ -12,6 +12,8 @@ endfunction
 
 augroup load_vim_watchdogs
     autocmd!
-    autocmd BufWritePre * call neobundle#source('watchdogs')
+    autocmd BufWritePre * call dein#source(['watchdogs'])
                 \ | autocmd! load_vim_watchdogs
 augroup END
+
+execute 'autocmd DeinHooks User dein#source#'.g:dein#name.' call s:on_source()'
