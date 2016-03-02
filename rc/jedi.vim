@@ -1,10 +1,4 @@
 function! s:on_source()
-    let libpython = system('python -c ''import sysconfig, glob, os;'.
-                \ 'libdir = sysconfig.get_config_var("LIBDIR");'.
-                \ 'print(glob.glob(os.path.join(libdir, "libpython?.?.*"))[0])''')
-
-    exec 'set pythondll='.libpython
-
     let g:jedi#force_py_version =
                 \ str2nr(system('python -c "import sys; print(sys.version_info.major)"'))
 
