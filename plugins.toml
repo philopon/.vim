@@ -8,6 +8,7 @@ repo = 'tomasr/molokai'
 
 [[plugins]]
 repo = 'nathanaelkane/vim-indent-guides'
+lazy = 1
 # }}}
 
 # {{{ accessibility
