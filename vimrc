@@ -48,7 +48,7 @@ if dein#check_install()
 endif
 
 filetype plugin indent on
-
+syntax on
 " }}}
 
 "{{{ check updates
