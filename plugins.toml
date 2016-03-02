@@ -27,7 +27,13 @@ on_map = '<c-p>'
 repo = 'Shougo/neocomplete.vim'
 lazy = 1
 on_i = 1
-disabled = '!has("lua")'
+if = 'has("lua")'
+
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+lazy = 1
+on_i = 1
+if = 'has("nvim")'
 # }}}
 
 # {{{ execute
