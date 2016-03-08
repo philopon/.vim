@@ -91,6 +91,13 @@ lazy = 1
 on_ft = 'python'
 # }}}
 
+# {{{ latex
+[[plugins]]
+repo = 'lervag/vimtex'
+lazy = 1
+on_ft = 'tex'
+# }}}
+
 # {{{ toml
 [[plugins]]
 repo = 'cespare/vim-toml'
