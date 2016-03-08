@@ -2,19 +2,6 @@ function! s:on_source()
     let g:jedi#force_py_version =
                 \ str2nr(system('python -c "import sys; print(sys.version_info.major)"'))
 
-    if $CONDA_ENV_PATH != ''
-        let script = 'import os, sys, glob;'.
-                    \ 'conda_path, = glob.glob(os.path.join(os.environ["CONDA_ENV_PATH"], "lib", "python?.?", "site-packages"));'.
-                    \ 'conda_path not in sys.path and '.
-                    \ 'sys.path.insert(0, conda_path)'
-
-        if g:jedi#force_py_version == 3
-            exec "python3 ".script
-        else
-            exec "python ".script
-        endif
-    endif
-
     if dein#tap('neocomplete') || dein#tap('deoplete')
         let g:jedi#show_call_signatures = 0
         let g:jedi#auto_vim_configuration = 0
