@@ -52,18 +52,18 @@ lazy = 1
 repo = 'thinca/vim-quickrun'
 lazy = 1
 on_cmd = 'QuickRun'
-depends = 'Shougo/vimproc.vim'
+depends = 'vimproc'
 
 [[plugins]]
 repo = 'osyo-manga/shabadou.vim'
 lazy = 1
-depends = 'thinca/vim-quickrun'
+depends = 'quickrun'
 
 [[plugins]]
 repo = 'osyo-manga/vim-watchdogs'
 lazy = 1
 on_cmd = ['WatchdogsRun', 'WatchdogsRunSilent', 'WatchdogsRunSweep']
-depends = 'osyo-manga/shabadou.vim'
+depends = 'shabadou'
 # }}}
 
 # {{{ haskell
