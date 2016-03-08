@@ -22,6 +22,7 @@ endif
 call dein#begin(s:dein_dir)
 
 if dein#load_cache([expand('<sfile>'), s:dein_toml_path])
+    call dein#local("~/.vim/local", {"lazy": 1})
     call dein#load_toml(s:dein_toml_path)
     call dein#save_cache()
 endif
