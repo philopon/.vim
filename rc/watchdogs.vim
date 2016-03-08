@@ -4,7 +4,9 @@ function! s:on_source()
     endif
 
     let g:quickrun_config['python/watchdogs_checker'] =
-                \ { 'type': 'watchdogs_checker/flake8' }
+                \ { 'type': 'watchdogs_checker/flake8'
+                \ , 'runner/vimproc/updatetime': 10
+                \ }
 
     let g:watchdogs_check_BufWritePost_enable = 1
     let g:watchdogs_check_CursorHold_enable = 1
