@@ -16,6 +16,9 @@ function! UpdateSkim(status)
 endfunction
 
 function! s:on_source()
+    let g:vimtex_fold_enabled = 1
+    let g:vimtex_imaps_enabled = 0
+
     if has('mac')
         let g:vimtex_view_general_viewer = 'displayline'
         let g:vimtex_view_general_options = '@line @pdf @tex'
