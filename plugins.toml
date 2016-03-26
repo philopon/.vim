@@ -1,24 +1,19 @@
-[[plugins]]
-repo = 'Shougo/dein.vim'
-rtp = ''
-
 # {{{ visual
 [[plugins]]
 repo = 'tomasr/molokai'
+hook_add = 'colorscheme molokai'
+lazy = 0
 
 [[plugins]]
 repo = 'nathanaelkane/vim-indent-guides'
-lazy = 1
 # }}}
 
 # {{{ accessibility
 [[plugins]]
 repo = 'tyru/open-browser.vim'
-lazy = 1
 
 [[plugins]]
 repo = 'ctrlpvim/ctrlp.vim'
-lazy = 1
 on_cmd = 'CtrlP'
 on_map = '<c-p>'
 # }}}
@@ -26,13 +21,11 @@ on_map = '<c-p>'
 # {{{ complete
 [[plugins]]
 repo = 'Shougo/neocomplete.vim'
-lazy = 1
 on_i = 1
 if = 'has("lua")'
 
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
-lazy = 1
 on_i = 1
 if = 'has("nvim")'
 # }}}
@@ -40,7 +33,6 @@ if = 'has("nvim")'
 # {{{ execute
 [[plugins]]
 repo = 'Shougo/vimproc.vim'
-lazy = 1
 
     [plugins.build]
     windows = 'tools\\update-dll-mingw'
@@ -50,18 +42,15 @@ lazy = 1
 
 [[plugins]]
 repo = 'thinca/vim-quickrun'
-lazy = 1
 on_cmd = 'QuickRun'
 depends = 'vimproc'
 
 [[plugins]]
 repo = 'osyo-manga/shabadou.vim'
-lazy = 1
 depends = 'quickrun'
 
 [[plugins]]
 repo = 'osyo-manga/vim-watchdogs'
-lazy = 1
 on_cmd = ['WatchdogsRun', 'WatchdogsRunSilent', 'WatchdogsRunSweep']
 depends = 'shabadou'
 # }}}
@@ -69,39 +58,33 @@ depends = 'shabadou'
 # {{{ haskell
 [[plugins]]
 repo = 'eagletmt/ghcmod-vim'
-lazy = 1
 on_ft = 'haskell'
 
 [[plugins]]
 repo = 'eagletmt/neco-ghc'
-lazy = 1
 on_ft = 'haskell'
 # }}}
 
 # {{{ python
 [[plugins]]
 repo = 'davidhalter/jedi-vim'
-lazy = 1
 on_ft = 'python'
 depends = 'auto-python-neovim'
 
 [[plugins]]
 repo = 'hynek/vim-python-pep8-indent'
-lazy = 1
 on_ft = 'python'
 # }}}
 
 # {{{ latex
 [[plugins]]
 repo = 'lervag/vimtex'
-lazy = 1
 on_ft = 'tex'
 # }}}
 
 # {{{ toml
 [[plugins]]
 repo = 'cespare/vim-toml'
-lazy = 1
 on_ft = 'toml'
 # }}}
 

@@ -19,12 +19,15 @@ if &runtimepath !~ '/dein.vim'
     execute 'set runtimepath^='.fnamemodify(s:dein_repo_dir, ':p')
 endif
 
-call dein#begin(s:dein_dir)
+if dein#load_state(s:dein_dir)
+    call dein#begin(s:dein_dir)
 
-if dein#load_cache([expand('<sfile>'), s:dein_toml_path])
+    call dein#add('Shougo/dein.vim', {'rtp': ''})
     call dein#local("~/.vim/local", {"lazy": 1})
-    call dein#load_toml(s:dein_toml_path)
-    call dein#save_cache()
+    call dein#load_toml(s:dein_toml_path, {"lazy": 1})
+
+    call dein#end()
+    call dein#save_state()
 endif
 
 augroup DeinHooks
@@ -41,8 +44,6 @@ for rc in split(globpath(vimbase.'/rc', '**.vim'))
         execute 'source '.rc
     endif
 endfor
-
-call dein#end()
 
 if dein#check_install()
     call dein#install()
