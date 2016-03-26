@@ -93,4 +93,16 @@ on_ft = 'toml'
 repo = 'digitaltoad/vim-pug'
 on_ft = 'pug'
 # }}}
+
+# {{{ typescript
+[[plugins]]
+repo = 'leafgarland/typescript-vim'
+on_ft = 'typescript'
+
+[[plugins]]
+repo = 'Quramy/tsuquyomi'
+depends = 'vimproc'
+on_ft = 'typescript'
+# }}}
+
 # vim:foldmethod=marker

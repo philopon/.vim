@@ -8,6 +8,9 @@ function! s:on_source()
                 \ , 'runner/vimproc/updatetime': 10
                 \ }
 
+    let g:quickrun_config['watchdogs_checker/tsc'] =
+                \ { 'exec': '%c' }
+
     let g:watchdogs_check_BufWritePost_enable = 1
     let g:watchdogs_check_CursorHold_enable = 1
 endfunction
