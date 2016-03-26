@@ -3,3 +3,4 @@
 /.undo
 /.netrwhist
 /.last_updated
+*.vim-rplugin~

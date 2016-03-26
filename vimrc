@@ -25,6 +25,11 @@ if dein#load_state(s:dein_dir)
     call dein#add('Shougo/dein.vim', {'rtp': ''})
     call dein#local("~/.vim/local", {"lazy": 1})
     call dein#load_toml(s:dein_toml_path, {"lazy": 1})
+    call dein#load_toml('~/.vim/deoplete.toml',
+                \ { 'lazy': 1
+                \ , 'if': 'has("nvim")'
+                \ , 'on_i': 1
+                \ })
 
     call dein#end()
     call dein#save_state()

@@ -1,0 +1,12 @@
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+
+[[plugins]]
+repo = 'zchee/deoplete-jedi'
+on_ft = 'python'
+depends = 'jedi'
+
+[[plugins]]
+repo = 'mhartington/deoplete-typescript'
+depends = 'tsuquyomi'
+on_ft = 'typescript'

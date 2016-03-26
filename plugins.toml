@@ -23,11 +23,6 @@ on_map = '<c-p>'
 repo = 'Shougo/neocomplete.vim'
 on_i = 1
 if = 'has("lua")'
-
-[[plugins]]
-repo = 'Shougo/deoplete.nvim'
-on_i = 1
-if = 'has("nvim")'
 # }}}
 
 # {{{ execute
