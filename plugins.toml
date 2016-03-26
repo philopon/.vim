@@ -88,4 +88,9 @@ repo = 'cespare/vim-toml'
 on_ft = 'toml'
 # }}}
 
+# {{{ jade
+[[plugins]]
+repo = 'digitaltoad/vim-pug'
+on_ft = 'pug'
+# }}}
 # vim:foldmethod=marker
