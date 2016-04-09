@@ -1,0 +1,13 @@
+[[plugins]]
+repo = 'eagletmt/ghcmod-vim'
+on_ft = 'haskell'
+
+[[plugins]]
+repo = 'eagletmt/neco-ghc'
+on_ft = 'haskell'
+hook_source = '''
+augroup hook_source_neco_ghc
+    execute 'autocmd!'
+    execute 'autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc'
+augroup END
+'''

@@ -1,3 +1,7 @@
+[[plugins]]
+repo = 'lervag/vimtex'
+on_ft = 'tex'
+hook_source = '''
 function! UpdateSkim(status)
     if !a:status | return | endif
 
@@ -15,15 +19,13 @@ function! UpdateSkim(status)
     endif
 endfunction
 
-function! s:on_source()
-    let g:vimtex_fold_enabled = 1
-    let g:vimtex_imaps_enabled = 0
 
-    if has('mac')
-        let g:vimtex_view_general_viewer = 'displayline'
-        let g:vimtex_view_general_options = '@line @pdf @tex'
-        let g:vimtex_latexmk_callback_hook = 'UpdateSkim'
-    endif
-endfunction
+let g:vimtex_fold_enabled = 1
+let g:vimtex_imaps_enabled = 0
 
-execute 'autocmd DeinHooks User dein#source#'.g:dein#name.' call s:on_source()'
+if has('mac')
+    let g:vimtex_view_general_viewer = 'displayline'
+    let g:vimtex_view_general_options = '@line @pdf @tex'
+    let g:vimtex_latexmk_callback_hook = 'UpdateSkim'
+endif
+'''

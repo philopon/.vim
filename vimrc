@@ -3,7 +3,7 @@ let vimbase = expand('~/.vim')
 " {{{ dein
 let s:dein_dir = vimbase.'/.dein'
 let s:dein_repo_dir = s:dein_dir.'/repos/github.com/Shougo/dein.vim'
-let s:dein_toml_path = vimbase.'/plugins.toml'
+let s:dein_toml_base = vimbase.'/dein'
 
 let g:dein#enable_name_conversion = 1
 
@@ -19,36 +19,28 @@ if &runtimepath !~ '/dein.vim'
     execute 'set runtimepath^='.fnamemodify(s:dein_repo_dir, ':p')
 endif
 
-if dein#load_state(s:dein_dir)
-    call dein#begin(s:dein_dir)
-
-    call dein#add('Shougo/dein.vim', {'rtp': ''})
-    call dein#local("~/.vim/local", {"lazy": 1})
-    call dein#load_toml(s:dein_toml_path, {"lazy": 1})
-    call dein#load_toml('~/.vim/deoplete.toml',
-                \ { 'lazy': 1
-                \ , 'if': 'has("nvim")'
-                \ , 'on_i': 1
-                \ })
-
-    call dein#end()
-    call dein#save_state()
-endif
-
-augroup DeinHooks
-    autocmd!
-augroup END
-
 for rc in split(globpath(vimbase.'/config', '**.vim'))
     exec 'source '.rc
 endfor
 
-for rc in split(globpath(vimbase.'/rc', '**.vim'))
-    let name = fnamemodify(rc, ':t:r')
-    if dein#tap(name)
-        execute 'source '.rc
-    endif
-endfor
+if dein#load_state(s:dein_dir)
+    let s:dein_tomls = []
+    for toml in split(globpath(s:dein_toml_base, '**.toml'))
+        call add(s:dein_tomls, toml)
+    endfor
+
+    call dein#begin(s:dein_dir, [$MYVIMRC] + s:dein_tomls)
+
+    call dein#add('Shougo/dein.vim', {'rtp': ''})
+    call dein#local("~/.vim/local", {"lazy": 1})
+
+    for toml in s:dein_tomls
+        call dein#load_toml(toml, {'lazy': 1})
+    endfor
+
+    call dein#end()
+    call dein#save_state()
+endif
 
 if dein#check_install()
     call dein#install()
