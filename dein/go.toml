@@ -1,9 +1,7 @@
 [[plugins]]
 repo = 'fatih/vim-go'
 on_ft = 'go'
-hook_source = '''
-let g:go_fmt_command = "goimports"
-'''
+hook_source = 'let g:go_fmt_command = "goimports"'
 
 [[plugins]]
 repo = 'zchee/deoplete-go'
