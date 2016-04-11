@@ -2,7 +2,11 @@
 [[plugins]]
 repo = 'tomasr/molokai'
 lazy = 0
-hook_add = 'colorscheme molokai'
+hook_add = '''
+if dein#tap('molokai')
+    colorscheme molokai
+endif
+'''
 
 [[plugins]]
 repo = 'nathanaelkane/vim-indent-guides'
