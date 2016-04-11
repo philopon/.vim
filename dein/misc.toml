@@ -13,6 +13,11 @@ repo = 'nathanaelkane/vim-indent-guides'
 hook_add = 'call local#dein#vim_indent_guides#hook_add()'
 hook_source = 'call local#dein#vim_indent_guides#hook_source()'
 hook_post_source = 'IndentGuidesEnable'
+
+[[plugins]]
+repo = 'itchyny/lightline.vim'
+lazy = 0
+hook_add = 'call local#dein#lightline#hook_add()'
 # }}}
 
 # {{{ complete
