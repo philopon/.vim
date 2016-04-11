@@ -22,7 +22,9 @@ set number cmdheight=1 visualbell noerrorbells background=dark
 
 set list listchars=tab:▸\ ,eol:↲,extends:»
 
-set clipboard=unnamed,unnamedplus
+if !has('nvim') || (exists('$DISPLAY') && (executable('xsel') || executable('xclip')))
+    set clipboard=unnamed,unnamedplus
+endif
 
 set hidden
 
