@@ -4,4 +4,5 @@ if has('nvim') && system('python -c "import neovim"') != ''
     else
         echo system('pip install --user neovim')
     endif
+    UpdateRemotePlugins
 endif
