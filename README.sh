@@ -4,9 +4,11 @@
 
 set -e
 
+BRANCH=${BRANCH:-master}
+
 mkdir -p ~/.config
 NVIM_DIR=~/.config/nvim
-[ ! -d $NVIM_DIR ] && git clone git@github.com:philopon/.vim.git $NVIM_DIR
+[ ! -d $NVIM_DIR ] && git clone --branch $BRANCH git@github.com:philopon/.vim.git $NVIM_DIR
 
 cd ~
 ln -sf $NVIM_DIR/init.vim .vimrc
