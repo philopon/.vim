@@ -26,6 +26,13 @@ if !has('nvim') || (exists('$DISPLAY') && (executable('xsel') || executable('xcl
     set clipboard=unnamed,unnamedplus
 endif
 
+set scrolloff=3
+
+set cursorline
+augroup ConfigCursorLine
+    autocmd! ColorScheme * highlight clear CursorLine
+augroup END
+
 set hidden
 
 set shellslash
