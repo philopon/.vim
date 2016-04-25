@@ -1,4 +1,5 @@
 let vimbase = expand('~/.config/nvim')
+execute 'set runtimepath+='.vimbase
 
 " {{{ dein
 let s:dein_dir = vimbase.'/.dein'
