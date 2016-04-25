@@ -4,10 +4,10 @@
 
 set -e
 
-cd $HOME
-[ ! -d .vim ] && git clone git@github.com:philopon/.vim.git
-ln -sf .vim/vimrc .vimrc
-ln -sf .vim/gvimrc .gvimrc
-[ ! -d .config ] && mkdir .config
-cd $HOME/.config
-[ ! -d nvim ] && ln -sf ../.vim nvim
+mkdir -p ~/.config
+NVIM_DIR=~/.config/nvim
+[ ! -d $NVIM_DIR ] && git clone git@github.com:philopon/.vim.git $NVIM_DIR
+
+cd ~
+ln -sf $NVIM_DIR/init.vim .vimrc
+ln -sf $NVIM_DIR/gvimrc .gvimrc
