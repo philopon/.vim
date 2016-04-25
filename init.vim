@@ -1,4 +1,4 @@
-let vimbase = expand('~/.vim')
+let vimbase = expand('~/.config/nvim')
 
 " {{{ dein
 let s:dein_dir = vimbase.'/.dein'
