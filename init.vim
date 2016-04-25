@@ -43,36 +43,17 @@ if dein#load_state(s:dein_dir)
     call dein#save_state()
 endif
 
-if dein#check_install()
-    call dein#install()
-endif
+augroup DeinPackages
+    autocmd!
+    if dein#check_install()
+        autocmd VimEnter * call local#init#first_install()
+    else
+        autocmd VimEnter * call local#init#update()
+    endif
+augroup END
 
 filetype plugin indent on
 syntax on
 " }}}
-
-"{{{ check updates
-let s:upd_name = vimbase.'/.last_updated'
-
-if !filereadable(s:upd_name)
-    call writefile([0], s:upd_name)
-endif
-
-let s:last = str2nr(readfile(s:upd_name)[0])
-let s:current = str2nr(strftime('%s'))
-
-if s:current > s:last + 24 * 3600
-    function! s:check_updates()
-        call dein#update()
-        call writefile([s:current], s:upd_name)
-        autocmd! auto_check_updates
-    endfunction
-
-    augroup auto_check_updates
-        autocmd!
-        autocmd VimEnter * call s:check_updates()
-    augroup END
-endif
-"}}}
 
 " vim:set foldmethod=marker:
