@@ -33,7 +33,7 @@ if dein#load_state(s:dein_dir)
     call dein#begin(s:dein_dir, [$MYVIMRC] + s:dein_tomls)
 
     call dein#add('Shougo/dein.vim', {'rtp': ''})
-    call dein#local("~/.vim/local", {"lazy": 1})
+    call dein#local(vimbase."/local", {"lazy": 1})
 
     for toml in s:dein_tomls
         call dein#load_toml(toml, {'lazy': 1})
