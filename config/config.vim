@@ -1,5 +1,6 @@
 set directory=/tmp
 
+set backup
 let backupdir = vimbase.'/.backup'
 if !isdirectory(backupdir)
     call mkdir(backupdir)
