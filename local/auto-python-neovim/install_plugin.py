@@ -25,53 +25,52 @@ def is_require_recheck(cache, interval):
 
 
 def load_last_version(cache, interval):
-    try:
-        import cPickle as pickle
-    except ImportError:
-        import pickle
-
     if is_require_recheck(cache, interval):
         last = get_latest_version()
-        pickle.dump(last, open(cache, 'wb'), 0)
+
+        with open(cache, 'w') as f:
+            f.write('.'.join(str(i) for i in last))
+
         return last
 
     else:
-        return pickle.load(open(cache, 'rb'))
+        with open(cache) as f:
+            return [int(i) for i in f.read().split('.')]
 
 
 def get_installed_version():
-    from pip.utils.outdated import get_installed_version
-    return [int(i) for i in get_installed_version('neovim').split('.')]
+    import pkg_resources
+
+    try:
+        return [int(i) for i in pkg_resources.get_distribution('neovim').version.split('.')]
+    except pkg_resources.DistributionNotFound:
+        return None
 
 
 def main():
     import sys
-    import os
 
-    _, cache, interval = sys.argv
+    args = ['pip{}.{}'.format(*sys.version_info[:2]), 'install', 'neovim']
 
-    pip = 'pip{}.{}'.format(*sys.version_info[:2])
+    cur = get_installed_version()
 
-    args = [pip, 'install', 'neovim']
-
-    if os.environ.get('VIRTUAL_ENV') is None:
-        args.append('--user')
-
-    try:
-        import neovim
-        neovim
-
-        if get_installed_version() == load_last_version(cache, int(interval)):
+    if cur is not None:
+        _, cache, interval = sys.argv
+        if cur == load_last_version(cache, int(interval)):
             return 0
 
         args.append('-U')
 
-    except ImportError:
-        pass
+    import os
+
+    if os.environ.get('VIRTUAL_ENV') is None:
+        args.append('--user')
 
     import subprocess
     subprocess.check_call(args)
+    return 1
 
 
 if __name__ == '__main__':
-    main()
+    import sys
+    sys.exit(main())
