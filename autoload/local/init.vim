@@ -1,4 +1,4 @@
-let s:last_updated_file = vimbase.'/.last_updated'
+let s:last_updated_file = vimcache.'/last_updated'
 
 function! local#init#write_last_updated() abort
     let l:current = str2nr(strftime('%s'))

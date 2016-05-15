@@ -1,8 +1,13 @@
 let vimbase = expand('~/.config/nvim')
 execute 'set runtimepath+='.vimbase
 
+let vimcache = expand('~/.cache/nvim')
+if ! isdirectory(vimcache)
+    call mkdir(vimcache, 'p')
+endif
+
 " {{{ dein
-let s:dein_dir = vimbase.'/.dein'
+let s:dein_dir = vimcache.'/dein'
 let s:dein_repo_dir = s:dein_dir.'/repos/github.com/Shougo/dein.vim'
 let s:dein_toml_base = vimbase.'/dein'
 
