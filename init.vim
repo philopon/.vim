@@ -50,11 +50,7 @@ endif
 
 augroup DeinPackages
     autocmd!
-    if dein#check_install()
-        autocmd VimEnter * call local#init#first_install()
-    else
-        autocmd VimEnter * call local#init#update()
-    endif
+    autocmd VimEnter * call local#init#dein_install(dein#check_install())
 augroup END
 
 filetype plugin indent on
