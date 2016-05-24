@@ -11,9 +11,11 @@ function! local#dein#watchdogs#hook_source() abort
     endif
 
     let g:quickrun_config['python/watchdogs_checker'] =
-                \ { 'type': 'watchdogs_checker/flake8'
-                \ , 'runner/vimproc/updatetime': 10
-                \ }
+                \ {'runner/vimproc/updatetime': 10}
+
+    if executable('flake8')
+        let g:quickrun_config['python/watchdogs_checker'].type = 'watchdogs_checker/flake8'
+    endif
 
     let g:quickrun_config['watchdogs_checker/tsc'] =
                 \ { 'exec': '%c' }
