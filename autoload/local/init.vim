@@ -17,10 +17,10 @@ endfunction
 
 let s:last_updated_file = vimcache.'/last_updated'
 
-function! local#init#dein_install(ci) abort
+function! local#init#dein_install(ci, interval) abort
     if a:ci
         call dein#install()
-    elseif local#init#check_require_update(s:last_updated_file, 24 * 3600)
+    elseif local#init#check_require_update(s:last_updated_file, a:interval)
         call dein#update()
     else
         return 1

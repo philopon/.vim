@@ -36,7 +36,7 @@ repo = 'tyru/open-browser.vim'
 repo = 'ctrlpvim/ctrlp.vim'
 on_cmd = 'CtrlP'
 on_map = '<c-p>'
-hook_source = 'let g:ctrlp_working_path_mode = "ra"'
+hook_source = "call local#dein#ctrlp#hook_source()"
 # }}}
 
 # {{{ execute

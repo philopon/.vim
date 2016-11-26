@@ -50,7 +50,7 @@ endif
 
 augroup DeinPackages
     autocmd!
-    autocmd VimEnter * call local#init#dein_install(dein#check_install())
+    autocmd VimEnter * call local#init#dein_install(dein#check_install(), 7 * 24 * 3600)
 augroup END
 
 filetype plugin indent on

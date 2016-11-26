@@ -6,3 +6,9 @@ on_ft = 'typescript'
 repo = 'Quramy/tsuquyomi'
 depends = 'vimproc'
 on_ft = 'typescript'
+hook_source = 'call local#dein#tsuquyomi#hook_source()'
+
+[[plugins]]
+repo = 'mhartington/deoplete-typescript'
+depends = ['deoplete']
+on_ft = 'typescript'
