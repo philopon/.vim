@@ -21,5 +21,7 @@ function! local#dein#watchdogs#hook_source() abort
                 \ { 'exec': '%c' }
 
     let g:watchdogs_check_BufWritePost_enable = 1
+    let g:watchdogs_check_BufWritePost_enables = {"typescript": 0}
     let g:watchdogs_check_CursorHold_enable = 1
+    let g:watchdogs_check_CursorHold_enables = g:watchdogs_check_BufWritePost_enables
 endfunction
