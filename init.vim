@@ -35,7 +35,7 @@ if dein#load_state(s:dein_dir)
         call add(s:dein_tomls, toml)
     endfor
 
-    call dein#begin(s:dein_dir, [$MYVIMRC] + s:dein_tomls)
+    call dein#begin(s:dein_dir)
 
     call dein#add('Shougo/dein.vim', {'rtp': ''})
     call dein#local(vimbase."/local", {"lazy": 1})
@@ -54,7 +54,7 @@ augroup DeinPackages
 augroup END
 
 filetype plugin indent on
-syntax on
+syntax enable
 " }}}
 
 " vim:set foldmethod=marker:
