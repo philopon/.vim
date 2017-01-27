@@ -1,5 +1,5 @@
 function! local#dein#jedi#hook_source() abort
-    let g:jedi#force_py_version = str2nr(system('python -c "import sys; print(sys.version_info.major)"'))
+    let g:jedi#force_py_version = str2nr(vimproc#system('python -c "import sys; print(sys.version_info.major)"'))
 
     if dein#tap('neocomplete') || dein#tap('deoplete')
         let g:jedi#show_call_signatures = 0

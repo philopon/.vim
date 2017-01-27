@@ -2,7 +2,10 @@
 repo = 'davidhalter/jedi-vim'
 on_ft = 'python'
 on_i = 1
-depends = 'auto-python-neovim'
+depends = [
+    'auto-python-neovim',
+    'vimproc', # for hook_source
+]
 hook_source = 'call local#dein#jedi#hook_source()'
 
 [[plugins]]
