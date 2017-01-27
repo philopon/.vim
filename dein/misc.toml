@@ -20,6 +20,17 @@ lazy = 0
 hook_add = 'call local#dein#lightline#hook_add()'
 # }}}
 
+# {{{ operator
+[[plugins]]
+repo = 'kana/vim-operator-user'
+
+[[plugins]]
+repo = 'rhysd/vim-operator-surround'
+depends = 'operator-user'
+hook_add = 'call local#dein#operator#surround_hook_add()'
+lazy = 0
+# }}}
+
 # {{{ complete
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
