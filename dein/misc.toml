@@ -37,6 +37,10 @@ repo = 'Shougo/deoplete.nvim'
 if = 'has("nvim")'
 on_i = 1
 hook_source = 'call local#dein#deoplete#hook_source()'
+
+[[plugins]]
+repo = 'cohama/lexima.vim'
+on_i = 1
 # }}}
 
 # {{{ accessibility
