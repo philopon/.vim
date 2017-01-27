@@ -1,12 +1,11 @@
 [[plugins]]
 repo = 'leafgarland/typescript-vim'
-on_ft = 'typescript'
 
 [[plugins]]
 repo = 'Quramy/tsuquyomi'
-depends = 'vimproc'
-on_ft = 'typescript'
-hook_source = 'call local#dein#tsuquyomi#hook_source()'
+depends = ['vimproc', 'typescript']
+hook_add = 'call local#dein#tsuquyomi#hook_add()'
+lazy = 0
 
 [[plugins]]
 repo = 'mhartington/deoplete-typescript'
