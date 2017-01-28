@@ -60,20 +60,9 @@ repo = 'Shougo/vimproc.vim'
 hook_add = 'call local#dein#vimproc#hook_add()'
 
 [[plugins]]
-repo = 'thinca/vim-quickrun'
-on_cmd = 'QuickRun'
-depends = 'vimproc'
-
-[[plugins]]
-repo = 'osyo-manga/shabadou.vim'
-depends = 'quickrun'
-
-[[plugins]]
-repo = 'osyo-manga/vim-watchdogs'
-on_cmd = ['WatchdogsRun', 'WatchdogsRunSilent', 'WatchdogsRunSweep']
-depends = 'shabadou'
-hook_add = 'call local#dein#watchdogs#hook_add()'
-hook_source = 'call local#dein#watchdogs#hook_source()'
+repo = 'neomake/neomake'
+hook_source = 'call local#dein#neomake#hook_source()'
+on_event = 'BufWritePost'
 # }}}
 
 # vim:foldmethod=marker
