@@ -1,6 +1,7 @@
 [[plugins]]
 repo = 'rust-lang/rust.vim'
 on_ft = 'rust'
+hook_source = 'call local#dein#lang#rust#hook_source_rust()'
 
 [[plugins]]
 repo = 'racer-rust/vim-racer'
