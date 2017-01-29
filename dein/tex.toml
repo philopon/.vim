@@ -1,4 +1,4 @@
 [[plugins]]
 repo = 'lervag/vimtex'
 on_ft = ['tex', 'plaintex']
-hook_source = 'call local#dein#vimtex#hook_source()'
+hook_source = 'call local#dein#lang#tex#hook_source_vimtex()'

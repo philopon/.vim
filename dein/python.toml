@@ -6,7 +6,7 @@ depends = [
     'auto-python-neovim',
     'vimproc', # for hook_source
 ]
-hook_source = 'call local#dein#jedi#hook_source()'
+hook_source = 'call local#dein#lang#python#jedi_hook_source()'
 
 [[plugins]]
 repo = 'hynek/vim-python-pep8-indent'

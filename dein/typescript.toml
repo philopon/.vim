@@ -4,7 +4,7 @@ repo = 'leafgarland/typescript-vim'
 [[plugins]]
 repo = 'Quramy/tsuquyomi'
 depends = ['vimproc', 'typescript']
-hook_add = 'call local#dein#tsuquyomi#hook_add()'
+hook_add = 'call local#dein#lang#typescript#hook_add_tsuquyomi()'
 lazy = 0
 
 [[plugins]]

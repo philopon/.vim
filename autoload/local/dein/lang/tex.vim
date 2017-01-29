@@ -1,9 +1,8 @@
-function! local#dein#vimtex#hook_source() abort
+function! local#dein#lang#tex#hook_source_vimtex() abort
     let g:vimtex_fold_enabled = 1
     let g:vimtex_imaps_enabled = 0
 
     if has('mac')
-
         function! UpdateSkim(status)
             if !a:status | return | endif
 

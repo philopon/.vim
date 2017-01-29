@@ -6,4 +6,4 @@ depends = 'vimproc'
 [[plugins]]
 repo = 'eagletmt/neco-ghc'
 on_ft = 'haskell'
-hook_source = 'call local#dein#neco_ghc#hook_source()'
+hook_source = 'call local#dein#lang#haskell#hook_source_neco_ghc()'
