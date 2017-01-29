@@ -15,6 +15,8 @@ if has('persistent_undo')
     let &undodir = undodir
 endif
 
+set fileencodings=iso-2022-jp,euc-jp,sjis,utf-8
+
 set spelllang=en,cjk
 
 set undofile
