@@ -11,6 +11,7 @@ function! local#dein#neomake#make() abort
 endfunction
 
 function! local#dein#neomake#hook_source() abort
+    let g:neomake_open_list = 2
     augroup hook_source_neomake
         autocmd!
         autocmd BufWritePost * call local#dein#neomake#make()
