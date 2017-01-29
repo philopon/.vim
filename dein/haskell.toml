@@ -1,9 +1,9 @@
 [[plugins]]
 repo = 'eagletmt/ghcmod-vim'
-on_ft = 'haskell'
+on_func = 'local#dein#lang#haskell#check_ghc_mod()'
 depends = 'vimproc'
 
 [[plugins]]
 repo = 'eagletmt/neco-ghc'
-on_ft = 'haskell'
+on_func = 'local#dein#lang#haskell#check_ghc_mod()'
 hook_source = 'call local#dein#lang#haskell#hook_source_neco_ghc()'
