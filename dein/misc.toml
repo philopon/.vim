@@ -52,12 +52,16 @@ repo = 'ctrlpvim/ctrlp.vim'
 on_cmd = 'CtrlP'
 on_map = '<c-p>'
 hook_source = "call local#dein#ctrlp#hook_source()"
+
+[[plugins]]
+repo = 'cocopon/vaffle.vim'
+on_cmd = 'Vaffle'
 # }}}
 
 # {{{ execute
 [[plugins]]
 repo = 'Shougo/vimproc.vim'
-hook_add = 'call local#dein#vimproc#hook_add()'
+build = 'make'
 
 [[plugins]]
 repo = 'neomake/neomake'
